@@ -95,6 +95,14 @@ class ViewController: UIViewController {
 
     func possibleSquares(for piece: Piece, index: Int) -> [Int] {
         var possibleSquares = [Int]()
+        if let piece = piece as? Pawn {
+            for relativeMove in piece.takes {
+                let possibleSquare = relativeMove + index
+                if possibleSquare >= 0, possibleSquare < squareViews.count, let possiblePiece = squareViews[possibleSquare].piece, possiblePiece.colour != piece.colour {
+                    possibleSquares.append(possibleSquare)
+                }
+            }
+        }
         for relativeMove in piece.relativeMoves {
             for i in 1...piece.range {
                 if index % 8 == 0 && (relativeMove == 7 || relativeMove == -9 || relativeMove == -1) {

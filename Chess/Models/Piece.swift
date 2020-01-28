@@ -33,6 +33,9 @@ struct Pawn: Piece {
     var range: Int {
         return firstMove ? 2 : 1
     }
+    var takes: [Int] {
+        return colour == .white ? [-7,-9] : [7,9]
+    }
 
     var stringValue: String {
         return colour == .white ? "♙" : "♟"
