@@ -49,6 +49,10 @@ class ViewController: UIViewController {
         if let view = recogniser.view as? SquareView {
             if let selectedSquare = selectedSquare, let possibleSquares = possibleSquares {
                 if possibleSquares.contains(view.tag) {
+                    if var pawn = selectedSquare.piece as? Pawn {
+                        pawn.firstMove = false
+                        selectedSquare.piece = pawn
+                    }
                     view.piece = selectedSquare.piece
                     selectedSquare.piece = nil
                     colourCheckers()
