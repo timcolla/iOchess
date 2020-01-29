@@ -27,6 +27,7 @@ class GameController {
                  Rook(colour: .white), Knight(colour: .white), Bishop(colour: .white), Queen(colour: .white), King(colour: .white), Bishop(colour: .white), Knight(colour: .white), Rook(colour: .white)]
     }
 
+    @discardableResult
     func selectSquare(index: Int) -> Bool {
         guard index > 0, index < board.count else {
             return false
