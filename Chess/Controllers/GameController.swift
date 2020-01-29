@@ -29,7 +29,7 @@ class GameController {
 
     func selectSquare(index: Int) -> Bool {
         if let selectedSquare = selectedSquare {
-            let possibleSquares = self.possibleSquares(for: index)
+            let possibleSquares = self.possibleSquares(for: selectedSquare)
 
             // move piece
             if possibleSquares.contains(index) {
@@ -86,7 +86,7 @@ class GameController {
                         break
                     }
                 } else if possibleSquare >= 0 && possibleSquare < board.count && !(piece is Knight) {
-                    if let possiblePiece = board[possibleSquare], possiblePiece.colour == piece.colour {
+                    if let possiblePiece = board[possibleSquare], possiblePiece.colour == piece.colour || piece is Pawn {
                         break
                     }
                     possibleSquares.append(possibleSquare)
@@ -119,7 +119,12 @@ class GameController {
 
         let piece = board[from]
         board[from] = nil
-        board[to] = piece
+        if var pawn = piece as? Pawn {
+            pawn.firstMove = false
+            board[to] = pawn
+        } else {
+            board[to] = piece
+        }
     }
 
     func row(from index: Int) -> Int {
