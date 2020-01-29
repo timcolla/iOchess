@@ -28,17 +28,27 @@ class GameController {
     }
 
     func selectSquare(index: Int) -> Bool {
+        guard index > 0, index < board.count else {
+            return false
+        }
+
         if let selectedSquare = selectedSquare {
-            let possibleSquares = self.possibleSquares(for: selectedSquare)
+            if let selectedPiece = board[index], let potentialPiece = board[selectedSquare],
+            selectedPiece.colour == potentialPiece.colour {
+                self.selectedSquare = index
+                return true
+            } else {
+                let possibleSquares = self.possibleSquares(for: selectedSquare)
 
-            // move piece
-            if possibleSquares.contains(index) {
-                movePiece(from: selectedSquare, to: index)
+                // move piece
+                if possibleSquares.contains(index) {
+                    movePiece(from: selectedSquare, to: index)
+                }
+
+                self.selectedSquare = nil
             }
-
-            self.selectedSquare = nil
         } else {
-            if index > 0, index < board.count, board[index] != nil {
+            if board[index] != nil {
                 selectedSquare = index
                 return true
             }
