@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1716488323E2EFF00055CB46 /* ChessTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1716488223E2EFF00055CB46 /* ChessTests.swift */; };
 		1723463722297C72005923D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1723463622297C72005923D1 /* AppDelegate.swift */; };
 		1723463922297C72005923D1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1723463822297C72005923D1 /* ViewController.swift */; };
 		1723463C22297C72005923D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1723463A22297C72005923D1 /* Main.storyboard */; };
@@ -17,7 +18,20 @@
 		172346502229845C005923D1 /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1723464F2229845C005923D1 /* GameController.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		1716488523E2EFF00055CB46 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1723462B22297C72005923D1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1723463222297C72005923D1;
+			remoteInfo = Chess;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		1716488023E2EFF00055CB46 /* ChessTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChessTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1716488223E2EFF00055CB46 /* ChessTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessTests.swift; sourceTree = "<group>"; };
+		1716488423E2EFF00055CB46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1723463322297C72005923D1 /* Chess.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chess.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1723463622297C72005923D1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1723463822297C72005923D1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -31,6 +45,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		1716487D23E2EFF00055CB46 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1723463022297C72005923D1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -41,10 +62,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1716488123E2EFF00055CB46 /* ChessTests */ = {
+			isa = PBXGroup;
+			children = (
+				1716488223E2EFF00055CB46 /* ChessTests.swift */,
+				1716488423E2EFF00055CB46 /* Info.plist */,
+			);
+			path = ChessTests;
+			sourceTree = "<group>";
+		};
 		1723462A22297C72005923D1 = {
 			isa = PBXGroup;
 			children = (
 				1723463522297C72005923D1 /* Chess */,
+				1716488123E2EFF00055CB46 /* ChessTests */,
 				1723463422297C72005923D1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -53,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				1723463322297C72005923D1 /* Chess.app */,
+				1716488023E2EFF00055CB46 /* ChessTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -92,6 +124,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		1716487F23E2EFF00055CB46 /* ChessTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1716488723E2EFF00055CB46 /* Build configuration list for PBXNativeTarget "ChessTests" */;
+			buildPhases = (
+				1716487C23E2EFF00055CB46 /* Sources */,
+				1716487D23E2EFF00055CB46 /* Frameworks */,
+				1716487E23E2EFF00055CB46 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1716488623E2EFF00055CB46 /* PBXTargetDependency */,
+			);
+			name = ChessTests;
+			productName = ChessTests;
+			productReference = 1716488023E2EFF00055CB46 /* ChessTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		1723463222297C72005923D1 /* Chess */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1723464822297C75005923D1 /* Build configuration list for PBXNativeTarget "Chess" */;
@@ -115,10 +165,14 @@
 		1723462B22297C72005923D1 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1010;
+				LastSwiftUpdateCheck = 1130;
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Marino Software";
 				TargetAttributes = {
+					1716487F23E2EFF00055CB46 = {
+						CreatedOnToolsVersion = 11.3.1;
+						TestTargetID = 1723463222297C72005923D1;
+					};
 					1723463222297C72005923D1 = {
 						CreatedOnToolsVersion = 10.1;
 					};
@@ -138,11 +192,19 @@
 			projectRoot = "";
 			targets = (
 				1723463222297C72005923D1 /* Chess */,
+				1716487F23E2EFF00055CB46 /* ChessTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		1716487E23E2EFF00055CB46 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1723463122297C72005923D1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -156,6 +218,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		1716487C23E2EFF00055CB46 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1716488323E2EFF00055CB46 /* ChessTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1723462F22297C72005923D1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -169,6 +239,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1716488623E2EFF00055CB46 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1723463222297C72005923D1 /* Chess */;
+			targetProxy = 1716488523E2EFF00055CB46 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		1723463A22297C72005923D1 /* Main.storyboard */ = {
@@ -190,6 +268,48 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		1716488823E2EFF00055CB46 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4QGK58U3J6;
+				INFOPLIST_FILE = ChessTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.marinosoftware.ChessTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Chess.app/Chess";
+			};
+			name = Debug;
+		};
+		1716488923E2EFF00055CB46 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4QGK58U3J6;
+				INFOPLIST_FILE = ChessTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.marinosoftware.ChessTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Chess.app/Chess";
+			};
+			name = Release;
+		};
 		1723464622297C75005923D1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -345,6 +465,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1716488723E2EFF00055CB46 /* Build configuration list for PBXNativeTarget "ChessTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1716488823E2EFF00055CB46 /* Debug */,
+				1716488923E2EFF00055CB46 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		1723462E22297C72005923D1 /* Build configuration list for PBXProject "Chess" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
