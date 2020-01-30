@@ -9,5 +9,9 @@
 import Foundation
 
 struct GameLog {
-    var moves: [Move]
+    var moves = [Move]()
+
+    mutating func add(_ move: Move) {
+        moves.append(move)
+    }
 }

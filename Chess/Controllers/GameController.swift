@@ -11,6 +11,7 @@ import Foundation
 class GameController {
     var board: [Piece?]
     var selectedSquare: Int?
+    var gameLog = GameLog()
 
     init() {
         var movedPawnBlack = Pawn(colour: .black)
@@ -124,11 +125,15 @@ class GameController {
     }
 
     func movePiece(from: Int, to: Int) {
-        guard from > 0, to > 0, from < board.count, to < board.count else {
+        guard from > 0,
+            to > 0,
+            from < board.count,
+            to < board.count,
+            let piece = board[from] else {
             return
         }
 
-        let piece = board[from]
+        let toPiece = board[to]
         board[from] = nil
         if var pawn = piece as? Pawn {
             pawn.firstMove = false
@@ -136,6 +141,14 @@ class GameController {
         } else {
             board[to] = piece
         }
+
+        var move = Move(piece: piece, from: from, to: to)
+
+        if toPiece != nil,
+            toPiece!.colour != piece.colour {
+            move.capture = true
+        }
+        gameLog.add(move)
     }
 
     func row(from index: Int) -> Int {

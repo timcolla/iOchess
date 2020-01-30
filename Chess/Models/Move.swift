@@ -12,7 +12,7 @@ struct Move {
     let piece: Piece
     let from: Int
     let to: Int
-    let capture: Bool = false
-    let check: Bool = false
-    let checkMate: Bool = false
+    var capture: Bool = false
+    var check: Bool = false
+    var checkMate: Bool = false
 }
