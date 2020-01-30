@@ -11,6 +11,8 @@ jobs:
     runs-on: macOS-latest
     
     steps:
-    - uses: actions/checkout@develop
+    - uses: actions/checkout@v2
+      with:
+        ref: my-branch
     - name: Start xcodebuild test
       run: xcodebuild clean test -project Chess.xcodeproj -scheme Chess -destination "platform=iOS Simulator,name=iPhone 11 Pro"
