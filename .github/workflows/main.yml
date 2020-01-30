@@ -13,6 +13,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       with:
-        ref: my-branch
+        ref: develop
     - name: Start xcodebuild test
       run: xcodebuild clean test -project Chess.xcodeproj -scheme Chess -destination "platform=iOS Simulator,name=iPhone 11 Pro"
