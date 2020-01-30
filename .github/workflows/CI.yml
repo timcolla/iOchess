@@ -1,0 +1,17 @@
+name: CI
+
+on:
+  schedule:
+    - cron: '18 14 * * *'
+
+jobs:
+  build:
+
+    runs-on: macOS-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        ref: develop
+    - name: Start xcodebuild test
+      run: xcodebuild clean test -project Chess.xcodeproj -scheme Chess -destination "platform=iOS Simulator,name=iPhone 11 Pro"
