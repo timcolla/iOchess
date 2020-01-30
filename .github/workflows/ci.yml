@@ -8,6 +8,6 @@ jobs:
     runs-on: macOS-latest
     
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@develop
     - name: Start xcodebuild test
       run: xcodebuild clean test -project Chess.xcodeproj -scheme Chess -destination "platform=iOS Simulator,name=iPhone 11 Pro"
