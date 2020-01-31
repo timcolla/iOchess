@@ -18,6 +18,19 @@ struct Square {
         }
     }
 
+    var file: String {
+        get {
+            let columns = ["a", "b", "c", "d", "e", "f", "g", "h"]
+            return columns[coordinate.column]
+        }
+    }
+
+    var rank: String {
+        get {
+            return String(8-coordinate.row)
+        }
+    }
+
     init(withIndex index: Int) {
         self.index = index
     }

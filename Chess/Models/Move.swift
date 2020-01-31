@@ -15,4 +15,6 @@ struct Move {
     var capture: Bool = false
     var check: Bool = false
     var checkMate: Bool = false
+    var ambiguousFile: Bool = false
+    var ambiguousRank: Bool = false
 }
