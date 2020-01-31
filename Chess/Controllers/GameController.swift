@@ -133,6 +133,9 @@ class GameController {
             return
         }
 
+        // Check if move could be ambiguous
+        let (ambiguousFile, ambiguousRank) = checkForAmbiguity(from: from, to: to)
+
         let toPiece = board[to]
         board[from] = nil
         if var pawn = piece as? Pawn {
@@ -142,12 +145,39 @@ class GameController {
             board[to] = piece
         }
 
-        var move = Move(piece: piece, from: from, to: to)
+        var move = Move(piece: piece, from: from, to: to, ambiguousFile: ambiguousFile, ambiguousRank: ambiguousRank)
 
         if toPiece != nil,
             toPiece!.colour != piece.colour {
             move.capture = true
         }
         gameLog.add(move)
+    }
+
+    func checkForAmbiguity(from: Int, to: Int) -> (ambiguousFile: Bool, ambiguousRank: Bool) {
+        let fromPiece = board[from]!
+
+        var ambiguousFile = false
+        var ambiguousRank = false
+        for (index, piece) in board.enumerated() {
+            if piece != nil,
+                type(of: piece!) == type(of: fromPiece),
+                piece!.colour == fromPiece.colour {
+
+                if possibleSquares(for: index).contains(to) && index != from {
+                    let fromSquare = Square(withIndex: from)
+                    let indexSquare = Square(withIndex: index)
+                    if fromSquare.rank == indexSquare.rank {
+                        ambiguousFile = true
+                    } else if fromSquare.file == indexSquare.file {
+                        ambiguousRank = true
+                    } else {
+                        ambiguousFile = true
+                    }
+                }
+            }
+        }
+
+        return (ambiguousFile, ambiguousRank)
     }
 }
