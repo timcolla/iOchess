@@ -87,8 +87,8 @@ class GameController {
                     break
                 }
                 let possibleSquare = relativeMove * i + index
-                let piecePosition = position(from: index)
-                let possiblePosition = position(from: possibleSquare)
+                let piecePosition = Square(withIndex: index)
+                let possiblePosition = Square(withIndex: possibleSquare)
                 if let piece = piece as? Knight, piece.validPossibleSquare(possiblePosition, position: piecePosition) {
                     if let possiblePiece = board[possibleSquare], possiblePiece.colour == piece.colour {
                         break
@@ -149,17 +149,5 @@ class GameController {
             move.capture = true
         }
         gameLog.add(move)
-    }
-
-    func row(from index: Int) -> Int {
-        return index / 8
-    }
-
-    func column(from index: Int) -> Int {
-        return index % 8
-    }
-
-    func position(from index: Int) -> (column: Int, row: Int) {
-        return (column(from: index), row(from: index))
     }
 }

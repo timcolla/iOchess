@@ -13,8 +13,6 @@ enum Colour {
     case black
 }
 
-typealias Position = (column: Int, row: Int)
-
 protocol Piece {
     var relativeMoves: [Int] { get }
     var range: Int { get }
@@ -115,11 +113,11 @@ struct Knight: Piece {
         self.colour = colour
     }
 
-    func validPossibleSquare(_ possible: Position, position: Position) -> Bool {
-        if position.row - possible.row >= -2 && position.row - possible.row <= 2
-            && position.column - possible.column >= -2 && position.column - possible.column <= 2
-            && possible.column + possible.row * 8 >= 0
-            && possible.column + possible.row * 8 < 8 * 8 {
+    func validPossibleSquare(_ possible: Square, position: Square) -> Bool {
+        if position.coordinate.row - possible.coordinate.row >= -2 && position.coordinate.row - possible.coordinate.row <= 2
+            && position.coordinate.column - possible.coordinate.column >= -2 && position.coordinate.column - possible.coordinate.column <= 2
+            && possible.coordinate.column + possible.coordinate.row * 8 >= 0
+            && possible.coordinate.column + possible.coordinate.row * 8 < 8 * 8 {
             return true
         }
         return false
