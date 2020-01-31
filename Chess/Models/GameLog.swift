@@ -50,6 +50,12 @@ struct GameLog {
             // Show the square a piece moved to
             stringMove += Square(withIndex: move.to).toAN()
 
+            if move.checkMate {
+                stringMove += "#"
+            } else if move.check {
+                stringMove += "+"
+            }
+
             print(stringMove)
         }
     }
