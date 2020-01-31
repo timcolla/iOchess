@@ -18,6 +18,7 @@ protocol Piece {
     var range: Int { get }
     var colour: Colour { get }
     var stringValue: String { get }
+    var algebraicNotation: String { get }
 
     init(colour: Colour)
 }
@@ -39,6 +40,10 @@ struct Pawn: Piece {
         return colour == .white ? "♙" : "♟"
     }
 
+    var algebraicNotation: String {
+        return ""
+    }
+
     init(colour: Colour) {
         self.colour = colour
     }
@@ -51,6 +56,10 @@ struct Bishop: Piece {
 
     var stringValue: String {
         return colour == .white ? "♗" : "♝"
+    }
+
+    var algebraicNotation: String {
+        return "B"
     }
 
     init(colour: Colour) {
@@ -67,6 +76,10 @@ struct Queen: Piece {
         return colour == .white ? "♕" : "♛"
     }
 
+    var algebraicNotation: String {
+        return "Q"
+    }
+
     init(colour: Colour) {
         self.colour = colour
     }
@@ -79,6 +92,10 @@ struct King: Piece {
 
     var stringValue: String {
         return colour == .white ? "♔" : "♚"
+    }
+
+    var algebraicNotation: String {
+        return "K"
     }
 
     init(colour: Colour) {
@@ -95,6 +112,10 @@ struct Rook: Piece {
         return colour == .white ? "♖" : "♜"
     }
 
+    var algebraicNotation: String {
+        return "R"
+    }
+
     init(colour: Colour) {
         self.colour = colour
     }
@@ -107,6 +128,10 @@ struct Knight: Piece {
 
     var stringValue: String {
         return colour == .white ? "♘" : "♞"
+    }
+
+    var algebraicNotation: String {
+        return "N"
     }
 
     init(colour: Colour) {
