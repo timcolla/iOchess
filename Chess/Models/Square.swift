@@ -22,6 +22,7 @@ struct Square {
         self.index = index
     }
 
+    /// Returns the coordinate in an Algebraic notation string
     func toAN() -> String {
         let columns = ["a", "b", "c", "d", "e", "f", "g", "h"]
         let row = 8-coordinate.row

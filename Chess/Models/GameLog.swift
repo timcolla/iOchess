@@ -14,4 +14,13 @@ struct GameLog {
     mutating func add(_ move: Move) {
         moves.append(move)
     }
+
+    func toAN() {
+        for (i, move) in moves.enumerated() {
+            if (i+1)%2 == 1 {
+                print(ceil(Double(i+1)/2.0))
+            }
+            print(move.piece.stringValue+""+Square(withIndex: move.from).toAN()+""+Square(withIndex: move.to).toAN())
+        }
+    }
 }
