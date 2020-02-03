@@ -30,7 +30,7 @@ class GameController {
 
     @discardableResult
     func selectSquare(index: Int) -> Bool {
-        guard index > 0, index < board.count else {
+        guard index >= 0, index < board.count else {
             return false
         }
 
@@ -171,37 +171,60 @@ class GameController {
     }
 
     func movePiece(from: Int, to: Int) {
-        guard from > 0,
-            to > 0,
+        guard from >= 0,
+            to >= 0,
             from < board.count,
             to < board.count,
             let piece = board[from] else {
             return
         }
+        var move: Move
 
-        // Check if move could be ambiguous
-        let (ambiguousFile, ambiguousRank) = checkForAmbiguity(from: from, to: to)
-
-        let toPiece = board[to]
-        board[from] = nil
-        if var pawn = piece as? Pawn {
-            pawn.firstMove = false
-            board[to] = pawn
-        } else if var king = piece as? King {
+        if var king = board[from] as? King, from - to == 2, var rook = board[from-4] as? Rook {
+            // Long castle
             king.firstMove = false
-            board[to] = king
-        } else if var rook = piece as? Rook {
             rook.firstMove = false
-            board[to] = rook
+            move = Move(piece: piece, from: from, to: to, castle: .long)
+
+            board[to] = king
+            board[to+1] = rook
+            board[from-4] = nil
+            board[from] = nil
+        } else if var king = board[from] as? King, from - to == -2, var rook = board[from-4] as? Rook {
+            // Short castle
+            king.firstMove = false
+            rook.firstMove = false
+            move = Move(piece: piece, from: from, to: to, castle: .short)
+
+            board[to] = king
+            board[to-1] = rook
+            board[from+3] = nil
+            board[from] = nil
         } else {
-            board[to] = piece
-        }
+            // Check if move could be ambiguous
+            let (ambiguousFile, ambiguousRank) = checkForAmbiguity(from: from, to: to)
 
-        var move = Move(piece: piece, from: from, to: to, ambiguousFile: ambiguousFile, ambiguousRank: ambiguousRank)
+            let toPiece = board[to]
+            board[from] = nil
+            if var pawn = piece as? Pawn {
+                pawn.firstMove = false
+                board[to] = pawn
+            } else if var king = piece as? King {
+                king.firstMove = false
+                board[to] = king
+            } else if var rook = piece as? Rook {
+                rook.firstMove = false
+                board[to] = rook
+            } else {
+                board[to] = piece
+            }
 
-        if toPiece != nil,
-            toPiece!.colour != piece.colour {
-            move.capture = true
+            move = Move(piece: piece, from: from, to: to, ambiguousFile: ambiguousFile, ambiguousRank: ambiguousRank)
+
+            if toPiece != nil,
+                toPiece!.colour != piece.colour {
+                move.capture = true
+            }
         }
         gameLog.add(move)
     }

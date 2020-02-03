@@ -21,39 +21,43 @@ struct GameLog {
     /// Convert GameLog to Algebraic Notation
     func toAN() {
         for (i, move) in moves.enumerated() {
-            let fromSquare = Square(withIndex: move.from)
-
-            // The move number. One move is after both white and black have moved.
-            if (i+1)%2 == 1 {
-                print(ceil(Double(i+1)/2.0))
-            }
             var stringMove = ""
-            stringMove += move.piece.algebraicNotation
+            if let castle = move.castle {
+                stringMove += "\(castle)"
+            } else {
+                let fromSquare = Square(withIndex: move.from)
 
-            // If a pawn captures we need to show from what file it captured
-            if move.piece is Pawn, move.capture {
-                stringMove += fromSquare.file
-            }
+                // The move number. One move is after both white and black have moved.
+                if (i+1)%2 == 1 {
+                    print(ceil(Double(i+1)/2.0))
+                }
+                stringMove += move.piece.algebraicNotation
 
-            // If two or more pieces on the same rank could have moved here, show from what file it came
-            if move.ambiguousFile {
-                stringMove += fromSquare.file
-            }
-            // If two or more pieces on the same file could have moved here, show from what rank it came
-            if move.ambiguousRank {
-                stringMove += fromSquare.rank
-            }
-            // Show if a move was a capture of another piece
-            if move.capture {
-                stringMove += "x"
-            }
-            // Show the square a piece moved to
-            stringMove += Square(withIndex: move.to).toAN()
+                // If a pawn captures we need to show from what file it captured
+                if move.piece is Pawn, move.capture {
+                    stringMove += fromSquare.file
+                }
 
-            if move.checkMate {
-                stringMove += "#"
-            } else if move.check {
-                stringMove += "+"
+                // If two or more pieces on the same rank could have moved here, show from what file it came
+                if move.ambiguousFile {
+                    stringMove += fromSquare.file
+                }
+                // If two or more pieces on the same file could have moved here, show from what rank it came
+                if move.ambiguousRank {
+                    stringMove += fromSquare.rank
+                }
+                // Show if a move was a capture of another piece
+                if move.capture {
+                    stringMove += "x"
+                }
+                // Show the square a piece moved to
+                stringMove += Square(withIndex: move.to).toAN()
+
+                if move.checkMate {
+                    stringMove += "#"
+                } else if move.check {
+                    stringMove += "+"
+                }
             }
 
             print(stringMove)

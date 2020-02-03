@@ -17,4 +17,14 @@ struct Move {
     var checkMate: Bool = false
     var ambiguousFile: Bool = false
     var ambiguousRank: Bool = false
+    var castle: Castle?
+}
+
+enum Castle: String, CustomStringConvertible {
+    case short = "0-0"
+    case long = "0-0-0"
+
+    var description: String {
+        return "\(rawValue)"
+    }
 }
