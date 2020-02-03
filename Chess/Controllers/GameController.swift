@@ -58,7 +58,7 @@ class GameController {
         return false
     }
 
-    func possibleSquares(for index: Int) -> [Int] {
+    func possibleSquares(for index: Int, forCastlingRights: Bool = false) -> [Int] {
         guard let piece = board[index] else {
             return [Int]()
         }
@@ -97,7 +97,7 @@ class GameController {
                     if board[possibleSquare] != nil {
                         break
                     }
-                } else if let piece = piece as? King, (relativeMove == -2 || relativeMove == 2) {
+                } else if let piece = piece as? King, (relativeMove == -2 || relativeMove == 2), !forCastlingRights {
                     if piece.firstMove {
                         let oponentColour: Colour = piece.colour == .white ? .black : .white
                         if relativeMove == 2 {
@@ -129,9 +129,8 @@ class GameController {
                                     for (oponentIndex, possibleOponentPiece) in board.enumerated() {
                                         if let oponentPiece = possibleOponentPiece,
                                             oponentPiece.colour == oponentColour {
-                                            let oponentPossibleSquares = self.possibleSquares(for: oponentIndex)
-                                            if oponentPossibleSquares.contains(possibleSquare-1) ||
-                                                oponentPossibleSquares.contains(possibleSquare) ||
+                                            let oponentPossibleSquares = self.possibleSquares(for: oponentIndex, forCastlingRights: true)
+                                            if oponentPossibleSquares.contains(possibleSquare) ||
                                                 oponentPossibleSquares.contains(possibleSquare+1) {
                                                 possible = false
                                                 break
