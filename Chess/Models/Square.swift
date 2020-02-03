@@ -8,16 +8,20 @@
 
 import Foundation
 
+/** Denotes a square on the board
+ */
 struct Square {
     typealias Coordinate = (column: Int, row: Int)
 
     private let index: Int
+    /// The coordinate of this square
     var coordinate: Coordinate {
         get {
             return Coordinate(column: column(from: index), row: row(from: index))
         }
     }
 
+    /// The file this square is in
     var file: String {
         get {
             let columns = ["a", "b", "c", "d", "e", "f", "g", "h"]
@@ -25,12 +29,17 @@ struct Square {
         }
     }
 
+    /// The rank this square is in
     var rank: String {
         get {
             return String(8-coordinate.row)
         }
     }
 
+    /** Initialise with an array index
+
+         Indexes go from 0-63
+     */
     init(withIndex index: Int) {
         self.index = index
     }
@@ -43,11 +52,11 @@ struct Square {
         return columns[coordinate.column]+"\(row)"
     }
 
-    func row(from index: Int) -> Int {
+    private func row(from index: Int) -> Int {
         return index / 8
     }
 
-    func column(from index: Int) -> Int {
+    private func column(from index: Int) -> Int {
         return index % 8
     }
 }

@@ -8,16 +8,23 @@
 
 import Foundation
 
+/// What side the piece belongs to
 enum Colour {
     case white
     case black
 }
 
+/// Piece protocol for all pieces to conform to
 protocol Piece {
+    /// Where a piece can mvoe
     var relativeMoves: [Int] { get }
+    /// How far a piece can move
     var range: Int { get }
+    /// What side a piece belongs to
     var colour: Colour { get }
+    /// String value for displaying on the board
     var stringValue: String { get }
+    /// Algebraic notation string value
     var algebraicNotation: String { get }
 
     init(colour: Colour)

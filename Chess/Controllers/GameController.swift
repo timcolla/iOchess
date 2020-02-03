@@ -8,6 +8,11 @@
 
 import Foundation
 
+/** Keeps track of the whole game
+
+ You only have to use selectSquare(index:) every time a square is selected.
+ The GameController will apply all game logic needed.
+ */
 class GameController {
     var board: [Piece?]
     var selectedSquare: Int?
@@ -28,6 +33,17 @@ class GameController {
                  Rook(colour: .white), Knight(colour: .white), Bishop(colour: .white), Queen(colour: .white), King(colour: .white), Bishop(colour: .white), Knight(colour: .white), Rook(colour: .white)]
     }
 
+    /** What index on the board was selected.
+
+     indeces 0-7 are a8-h8
+     indeces 8-15 are a7-h7
+     indeces 16-23 are a6-h6
+     indeces 24-31 are a5-h5
+     indeces 32-39 are a4-h4
+     indeces 40-47 are a3-h3
+     indeces 48-55 are a2-h2
+     indeces 56-63 are a1-h1
+     */
     @discardableResult
     func selectSquare(index: Int) -> Bool {
         guard index >= 0, index < board.count else {
@@ -58,7 +74,8 @@ class GameController {
         return false
     }
 
-    func possibleSquares(for index: Int, forCastlingRights: Bool = false) -> [Int] {
+    /// Returns array of possible indeces for selected piece to move to
+    private func possibleSquares(for index: Int, forCastlingRights: Bool = false) -> [Int] {
         guard let piece = board[index] else {
             return [Int]()
         }
@@ -170,7 +187,14 @@ class GameController {
         return possibleSquares
     }
 
-    func movePiece(from: Int, to: Int) {
+    /**
+     Moves piece
+
+     - Parameters:
+        - from: From index
+        - to: To index
+     */
+    private func movePiece(from: Int, to: Int) {
         guard from >= 0,
             to >= 0,
             from < board.count,
@@ -229,7 +253,12 @@ class GameController {
         gameLog.add(move)
     }
 
-    func checkForAmbiguity(from: Int, to: Int) -> (ambiguousFile: Bool, ambiguousRank: Bool) {
+    /** Check to see if move could be ambiguous
+
+     For example if you have a rook on a4 and on h4 and want to move one of them
+     to d4 it would be ambiguous which rook you'd want to move there.
+     */
+    private func checkForAmbiguity(from: Int, to: Int) -> (ambiguousFile: Bool, ambiguousRank: Bool) {
         let fromPiece = board[from]!
 
         var ambiguousFile = false
