@@ -141,6 +141,12 @@ class GameController {
         if var pawn = piece as? Pawn {
             pawn.firstMove = false
             board[to] = pawn
+        } else if var king = piece as? King {
+            king.firstMove = false
+            board[to] = king
+        } else if var rook = piece as? Rook {
+            rook.firstMove = false
+            board[to] = rook
         } else {
             board[to] = piece
         }

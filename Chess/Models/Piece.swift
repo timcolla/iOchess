@@ -87,6 +87,7 @@ struct Queen: Piece {
 
 struct King: Piece {
     var colour: Colour
+    var firstMove: Bool = true
     var relativeMoves: [Int] = [-1,-7,-8,-9,1,7,8,9]
     var range: Int = 1
 
@@ -105,6 +106,7 @@ struct King: Piece {
 
 struct Rook: Piece {
     var colour: Colour
+    var firstMove: Bool = true
     var relativeMoves: [Int] = [-1,-8,1,8]
     var range: Int = 7
 
