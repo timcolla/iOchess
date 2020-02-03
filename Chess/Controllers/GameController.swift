@@ -75,7 +75,7 @@ class GameController {
     }
 
     /// Returns array of possible indeces for selected piece to move to
-    private func possibleSquares(for index: Int, forCastlingRights: Bool = false) -> [Int] {
+    func possibleSquares(for index: Int, forCastlingRights: Bool = false) -> [Int] {
         guard let piece = board[index] else {
             return [Int]()
         }
