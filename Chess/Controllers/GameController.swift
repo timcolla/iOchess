@@ -97,6 +97,53 @@ class GameController {
                     if board[possibleSquare] != nil {
                         break
                     }
+                } else if let piece = piece as? King, (relativeMove == -2 || relativeMove == 2) {
+                    if piece.firstMove {
+                        let oponentColour: Colour = piece.colour == .white ? .black : .white
+                        if relativeMove == 2 {
+                            if let rook = board[possibleSquare+1] as? Rook, rook.firstMove,
+                                board[possibleSquare-1] == nil,
+                                board[possibleSquare] == nil {
+                                var possible = true
+                                for (oponentIndex, possibleOponentPiece) in board.enumerated() {
+                                    if let oponentPiece = possibleOponentPiece,
+                                        oponentPiece.colour == oponentColour {
+                                        let oponentPossibleSquares = self.possibleSquares(for: oponentIndex)
+                                        if oponentPossibleSquares.contains(possibleSquare) ||
+                                            oponentPossibleSquares.contains(possibleSquare-1) {
+                                            possible = false
+                                            break
+                                        }
+                                    }
+                                }
+                                if possible {
+                                    possibleSquares.append(possibleSquare)
+                                }
+                            }
+                        } else {
+                            if let rook = board[possibleSquare-2] as? Rook, rook.firstMove,
+                                board[possibleSquare-1] == nil,
+                                board[possibleSquare] == nil,
+                                board[possibleSquare+1] == nil {
+                                    var possible = true
+                                    for (oponentIndex, possibleOponentPiece) in board.enumerated() {
+                                        if let oponentPiece = possibleOponentPiece,
+                                            oponentPiece.colour == oponentColour {
+                                            let oponentPossibleSquares = self.possibleSquares(for: oponentIndex)
+                                            if oponentPossibleSquares.contains(possibleSquare-1) ||
+                                                oponentPossibleSquares.contains(possibleSquare) ||
+                                                oponentPossibleSquares.contains(possibleSquare+1) {
+                                                possible = false
+                                                break
+                                            }
+                                        }
+                                    }
+                                    if possible {
+                                        possibleSquares.append(possibleSquare)
+                                    }
+                            }
+                        }
+                    }
                 } else if possibleSquare >= 0 && possibleSquare < board.count && !(piece is Knight) {
                     if let possiblePiece = board[possibleSquare], possiblePiece.colour == piece.colour || piece is Pawn {
                         break
