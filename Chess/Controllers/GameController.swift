@@ -85,14 +85,14 @@ class GameController {
         for (oponentIndex, possibleOponentPiece) in board.enumerated() {
             if let oponentPiece = possibleOponentPiece,
                 oponentPiece.colour == oponentColour {
-                forbiddenSquares += self.possibleSquares(for: oponentIndex)
+                forbiddenSquares += self.possibleSquares(for: oponentIndex, preventRecursion: true)
             }
         }
         return forbiddenSquares
     }
 
     /// Returns array of possible indeces for selected piece to move to
-    func possibleSquares(for index: Int, forCastlingRights: Bool = false) -> [Int] {
+    func possibleSquares(for index: Int, preventRecursion: Bool = false) -> [Int] {
         guard let piece = board[index] else {
             return [Int]()
         }
@@ -131,7 +131,7 @@ class GameController {
                     if board[possibleSquare] != nil {
                         break
                     }
-                } else if let piece = piece as? King, (relativeMove == -2 || relativeMove == 2), !forCastlingRights {
+                } else if let piece = piece as? King, (relativeMove == -2 || relativeMove == 2), !preventRecursion {
                     if piece.firstMove {
                         let oponentColour: Colour = piece.colour == .white ? .black : .white
                         if relativeMove == 2 {
@@ -160,6 +160,9 @@ class GameController {
                 } else if possibleSquare >= 0 && possibleSquare < board.count && !(piece is Knight) {
                     if let possiblePiece = board[possibleSquare], possiblePiece.colour == piece.colour || piece is Pawn {
                         break
+                    }
+                    if !preventRecursion, let piece = piece as? King, forbiddenKingSquares(for: piece).contains(possibleSquare) {
+                        continue
                     }
                     possibleSquares.append(possibleSquare)
                     if board[possibleSquare] != nil {
