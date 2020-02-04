@@ -253,11 +253,13 @@ class GameController {
         gameLog.add(move)
     }
 
-    /** Check to see if move could be ambiguous
-
-     For example if you have a rook on a4 and on h4 and want to move one of them
-     to d4 it would be ambiguous which rook you'd want to move there.
-     */
+    /// Check to see if move could be ambiguous
+    ///
+    /// For example if you have a rook on a4 and on h4 and want to move one of them
+    /// to d4 it would be ambiguous which rook you'd want to move there.
+    /// - Parameters:
+    ///    - from: From index
+    ///    - to: To index
     private func checkForAmbiguity(from: Int, to: Int) -> (ambiguousFile: Bool, ambiguousRank: Bool) {
         let fromPiece = board[from]!
 
