@@ -79,6 +79,18 @@ class GameController {
         return false
     }
 
+    private func forbiddenKingSquares(for piece: King) -> [Int] {
+        let oponentColour: Colour = piece.colour == .white ? .black : .white
+        var forbiddenSquares = [Int]()
+        for (oponentIndex, possibleOponentPiece) in board.enumerated() {
+            if let oponentPiece = possibleOponentPiece,
+                oponentPiece.colour == oponentColour {
+                forbiddenSquares += self.possibleSquares(for: oponentIndex)
+            }
+        }
+        return forbiddenSquares
+    }
+
     /// Returns array of possible indeces for selected piece to move to
     func possibleSquares(for index: Int, forCastlingRights: Bool = false) -> [Int] {
         guard let piece = board[index] else {
@@ -126,19 +138,9 @@ class GameController {
                             if let rook = board[possibleSquare+1] as? Rook, rook.firstMove,
                                 board[possibleSquare-1] == nil,
                                 board[possibleSquare] == nil {
-                                var possible = true
-                                for (oponentIndex, possibleOponentPiece) in board.enumerated() {
-                                    if let oponentPiece = possibleOponentPiece,
-                                        oponentPiece.colour == oponentColour {
-                                        let oponentPossibleSquares = self.possibleSquares(for: oponentIndex)
-                                        if oponentPossibleSquares.contains(possibleSquare) ||
-                                            oponentPossibleSquares.contains(possibleSquare-1) {
-                                            possible = false
-                                            break
-                                        }
-                                    }
-                                }
-                                if possible {
+                                let forbiddenKingSquares = self.forbiddenKingSquares(for: piece)
+                                if !forbiddenKingSquares.contains(possibleSquare) &&
+                                    !forbiddenKingSquares.contains(possibleSquare-1) {
                                     possibleSquares.append(possibleSquare)
                                 }
                             }
@@ -147,19 +149,9 @@ class GameController {
                                 board[possibleSquare-1] == nil,
                                 board[possibleSquare] == nil,
                                 board[possibleSquare+1] == nil {
-                                    var possible = true
-                                    for (oponentIndex, possibleOponentPiece) in board.enumerated() {
-                                        if let oponentPiece = possibleOponentPiece,
-                                            oponentPiece.colour == oponentColour {
-                                            let oponentPossibleSquares = self.possibleSquares(for: oponentIndex, forCastlingRights: true)
-                                            if oponentPossibleSquares.contains(possibleSquare) ||
-                                                oponentPossibleSquares.contains(possibleSquare+1) {
-                                                possible = false
-                                                break
-                                            }
-                                        }
-                                    }
-                                    if possible {
+                                    let forbiddenKingSquares = self.forbiddenKingSquares(for: piece)
+                                    if !forbiddenKingSquares.contains(possibleSquare) &&
+                                        !forbiddenKingSquares.contains(possibleSquare+1) {
                                         possibleSquares.append(possibleSquare)
                                     }
                             }
