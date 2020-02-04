@@ -18,6 +18,8 @@ class GameController {
     var selectedSquare: Int?
     var gameLog = GameLog()
 
+    var currentPlayer: Colour = .white
+
     init() {
         var movedPawnBlack = Pawn(colour: .black)
         movedPawnBlack.firstMove = false
@@ -61,12 +63,15 @@ class GameController {
                 // move piece
                 if possibleSquares.contains(index) {
                     movePiece(from: selectedSquare, to: index)
+                    currentPlayer = currentPlayer.toggled()
                 }
 
                 self.selectedSquare = nil
             }
         } else {
-            if board[index] != nil {
+            if board[index] != nil,
+                let possiblePiece = board[index],
+                possiblePiece.colour == currentPlayer {
                 selectedSquare = index
                 return true
             }

@@ -12,6 +12,14 @@ import Foundation
 enum Colour {
     case white
     case black
+
+    func toggled() -> Colour {
+        if self == .white {
+            return .black
+        } else {
+            return .white
+        }
+    }
 }
 
 /// Piece protocol for all pieces to conform to
