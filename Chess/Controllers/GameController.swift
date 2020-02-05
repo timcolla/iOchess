@@ -54,6 +54,11 @@ class GameController {
             return false
         }
 
+        if let checkedKing = checkedKing, index != checkedKing {
+            selectedSquare = nil
+            return false
+        }
+
         if let selectedSquare = selectedSquare {
             if let selectedPiece = board[index], let potentialPiece = board[selectedSquare],
             selectedPiece.colour == potentialPiece.colour {
