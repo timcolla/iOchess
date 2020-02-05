@@ -18,6 +18,8 @@ class GameController {
     var selectedSquare: Int?
     var gameLog = GameLog()
 
+    var checkedKing: Int?
+
     var currentPlayer: Colour = .white
 
     init() {
@@ -285,5 +287,30 @@ class GameController {
         }
 
         return (ambiguousFile, ambiguousRank)
+    }
+
+    func checkForCheck() -> Bool {
+        let allDirections: [Int] = [1,9,8,7,-1,-9,-8,-7]
+        for (index, piece) in board.enumerated() {
+            if let piece = piece as? King {
+                for direction in allDirections {
+                    for i in 1...7 {
+                        let possibleIndex = direction*i+index
+                        if possibleIndex >= 0,
+                            possibleIndex < board.count,
+                            let possiblePiece = board[possibleIndex],
+                            possiblePiece.colour != piece.colour {
+                            let possibleSquares = self.possibleSquares(for: possibleIndex, preventRecursion: true)
+                            if possibleSquares.contains(index) {
+                                checkedKing = index
+                                return true
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        checkedKing = nil
+        return false
     }
 }
