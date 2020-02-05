@@ -81,8 +81,13 @@ class GameController {
         if let selectedSquare = selectedSquare {
             if let selectedPiece = board[index], let potentialPiece = board[selectedSquare],
             selectedPiece.colour == potentialPiece.colour {
-                self.selectedSquare = index
-                return true
+                if possibleSquares(for: index).count > 0 {
+                    self.selectedSquare = index
+                    return true
+                } else {
+                    self.selectedSquare = nil
+                    return false
+                }
             } else {
                 let possibleSquares = self.possibleSquares(for: selectedSquare)
 
@@ -98,8 +103,13 @@ class GameController {
             if board[index] != nil,
                 let possiblePiece = board[index],
                 possiblePiece.colour == currentPlayer {
-                selectedSquare = index
-                return true
+                if possibleSquares(for: index).count > 0 {
+                    selectedSquare = index
+                    return true
+                } else {
+                    selectedSquare = nil
+                    return false
+                }
             }
         }
         return false
