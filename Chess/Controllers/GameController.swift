@@ -19,6 +19,7 @@ class GameController {
     var gameLog = GameLog()
 
     var checkedKing: Int?
+    var possibleSquaresInCheck = [Int]()
 
     var currentPlayer: Colour = .white
 
@@ -54,9 +55,27 @@ class GameController {
             return false
         }
 
-        if let checkedKing = checkedKing, index != checkedKing {
-            selectedSquare = nil
-            return false
+        if let checkedKing = checkedKing, index != checkedKing, selectedSquare != checkedKing {
+            if selectedSquare == nil {
+                let possibleSquares = possibleSquaresInCheck.filter(self.possibleSquares(for: index).contains)
+                if possibleSquares.count > 0 {
+                    selectedSquare = index
+                    return true
+                }
+                selectedSquare = nil
+                return false
+            } else {
+                let possibleSquares = possibleSquaresInCheck.filter(self.possibleSquares(for: selectedSquare!).contains)
+                if possibleSquares.contains(index) {
+                    movePiece(from: selectedSquare!, to: index)
+                    currentPlayer = currentPlayer.toggled()
+                    selectedSquare = nil
+                    return false
+                }
+
+                selectedSquare = nil
+                return selectSquare(index: index)
+            }
         }
 
         if let selectedSquare = selectedSquare {
@@ -102,6 +121,11 @@ class GameController {
     func possibleSquares(for index: Int, preventRecursion: Bool = false) -> [Int] {
         guard let piece = board[index] else {
             return [Int]()
+        }
+
+        if checkedKing != nil, !preventRecursion, !(piece is King) {
+            let possibleSquares = possibleSquaresInCheck.filter(self.possibleSquares(for: index, preventRecursion: true).contains)
+            return possibleSquares
         }
 
         var possibleSquares = [Int]()
@@ -295,6 +319,8 @@ class GameController {
     }
 
     func checkForCheck() -> Bool {
+        possibleSquaresInCheck.removeAll()
+
         let allDirections: [Int] = [1,9,8,7,-1,-9,-8,-7]
         for (index, piece) in board.enumerated() {
             if let piece = piece as? King {
@@ -308,6 +334,7 @@ class GameController {
                             let possibleSquares = self.possibleSquares(for: possibleIndex, preventRecursion: true)
                             if possibleSquares.contains(index) {
                                 checkedKing = index
+                                possibleSquaresInCheck += blockCheckSquares(kingIndex: index, checkedBy: possibleIndex)
                                 return true
                             }
                         }
@@ -317,5 +344,34 @@ class GameController {
         }
         checkedKing = nil
         return false
+    }
+
+    func blockCheckSquares(kingIndex: Int, checkedBy: Int) -> [Int] {
+        let kingSquare = Square(withIndex: kingIndex)
+        let checkedBySquare = Square(withIndex: checkedBy)
+
+        var direction: Int
+        if kingSquare.file == checkedBySquare.file {
+            direction = 8
+        } else if kingSquare.rank == checkedBySquare.rank {
+            direction = 1
+        } else if (kingIndex - checkedBy) % 9 == 0 {
+            direction = 9
+        } else {
+            direction = 7
+        }
+
+//        let direction = kingIndex - checkedBy
+
+        print("block squares: ")
+        print(direction)
+        var blockCheckSquares = [Int]()
+        for i in 1...(kingIndex-checkedBy)/direction {
+            print(i)
+            print(kingIndex-i*direction)
+            blockCheckSquares.append(kingIndex-i*direction)
+        }
+        print("\n\n")
+        return blockCheckSquares
     }
 }
