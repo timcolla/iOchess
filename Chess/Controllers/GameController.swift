@@ -294,9 +294,13 @@ class GameController {
                 pawn.firstMove = false
                 board[to] = pawn
 
-                if let enPassantablePawn = enPassantablePawn, to == enPassantablePawn - 8 || to == enPassantablePawn + 8 {
-                    toPiece = board[enPassantablePawn]
-                    board[enPassantablePawn] = nil
+                let pieceSquare = Square(withIndex: from)
+                if let enPassantablePawn = enPassantablePawn {
+                    let enPassantableSquare = Square(withIndex: enPassantablePawn)
+                    if pieceSquare.file != enPassantableSquare.file, to == enPassantablePawn - 8 || to == enPassantablePawn + 8 {
+                        toPiece = board[enPassantablePawn]
+                        board[enPassantablePawn] = nil
+                    }
                 }
 
                 enPassantablePawn = abs(from-to) == 16 ? to : nil
