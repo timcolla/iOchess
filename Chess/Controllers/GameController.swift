@@ -26,18 +26,27 @@ class GameController {
     var currentPlayer: Colour = .white
 
     init() {
-        var movedPawnBlack = Pawn(colour: .black)
-        movedPawnBlack.firstMove = false
-        var movedPawnWhite = Pawn(colour: .white)
-        movedPawnWhite.firstMove = false
+        board = []
+
+        reset()
+    }
+
+    func reset() {
         board = [Rook(colour: .black), Knight(colour: .black), Bishop(colour: .black), Queen(colour: .black), King(colour: .black), Bishop(colour: .black), Knight(colour: .black), Rook(colour: .black),
-                 Pawn(colour: .black), Pawn(colour: .black), Pawn(colour: .black), Pawn(colour: .black), Pawn(colour: .black), Pawn(colour: .black), Pawn(colour: .black), Pawn(colour: .black),
-                 nil, nil, nil, nil, nil, nil, nil, nil,
-                 nil, nil, nil, nil, nil, nil, nil, nil,
-                 nil, nil, nil, nil, nil, nil, nil, nil,
-                 nil, nil, nil, nil, nil, nil, nil, nil,
-                 Pawn(colour: .white), Pawn(colour: .white), Pawn(colour: .white), Pawn(colour: .white), Pawn(colour: .white), Pawn(colour: .white), Pawn(colour: .white), Pawn(colour: .white),
-                 Rook(colour: .white), Knight(colour: .white), Bishop(colour: .white), Queen(colour: .white), King(colour: .white), Bishop(colour: .white), Knight(colour: .white), Rook(colour: .white)]
+                Pawn(colour: .black), Pawn(colour: .black), Pawn(colour: .black), Pawn(colour: .black), Pawn(colour: .black), Pawn(colour: .black), Pawn(colour: .black), Pawn(colour: .black),
+                nil, nil, nil, nil, nil, nil, nil, nil,
+                nil, nil, nil, nil, nil, nil, nil, nil,
+                nil, nil, nil, nil, nil, nil, nil, nil,
+                nil, nil, nil, nil, nil, nil, nil, nil,
+                Pawn(colour: .white), Pawn(colour: .white), Pawn(colour: .white), Pawn(colour: .white), Pawn(colour: .white), Pawn(colour: .white), Pawn(colour: .white), Pawn(colour: .white),
+                Rook(colour: .white), Knight(colour: .white), Bishop(colour: .white), Queen(colour: .white), King(colour: .white), Bishop(colour: .white), Knight(colour: .white), Rook(colour: .white)]
+
+        selectedSquare = nil
+        gameLog = GameLog()
+        checkedKing = nil
+        possibleSquaresInCheck = [Int]()
+        enPassantablePawn = nil
+        currentPlayer = .white
     }
 
     /** What index on the board was selected.
