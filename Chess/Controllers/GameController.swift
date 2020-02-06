@@ -398,7 +398,9 @@ class GameController {
             direction = 7
         }
 
-//        let direction = kingIndex - checkedBy
+        if kingIndex-checkedBy < 0 {
+            direction /= -1
+        }
 
         print("block squares: ")
         print(direction)
