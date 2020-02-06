@@ -21,6 +21,8 @@ class GameController {
     var checkedKing: Int?
     var possibleSquaresInCheck = [Int]()
 
+    var enPassantablePawn: Int?
+
     var currentPlayer: Colour = .white
 
     init() {
@@ -144,6 +146,11 @@ class GameController {
                 let possibleSquare = relativeMove + index
                 if possibleSquare >= 0, possibleSquare < board.count, let possiblePiece = board[possibleSquare], possiblePiece.colour != piece.colour {
                     possibleSquares.append(possibleSquare)
+                    continue
+                }
+                if let enPassantablePawn = enPassantablePawn, (enPassantablePawn == possibleSquare + 8 || enPassantablePawn == possibleSquare - 8) {
+                    print("Take en passantable pawn")
+                    possibleSquares.append(possibleSquare)
                 }
             }
         }
@@ -243,6 +250,9 @@ class GameController {
             let piece = board[from] else {
             return
         }
+        if !(piece is Pawn) {
+            enPassantablePawn = nil
+        }
         var move: Move
 
         if var king = board[from] as? King, from - to == 2, var rook = board[from-4] as? Rook {
@@ -269,11 +279,18 @@ class GameController {
             // Check if move could be ambiguous
             let (ambiguousFile, ambiguousRank) = checkForAmbiguity(from: from, to: to)
 
-            let toPiece = board[to]
+            var toPiece = board[to]
             board[from] = nil
             if var pawn = piece as? Pawn {
                 pawn.firstMove = false
                 board[to] = pawn
+
+                if let enPassantablePawn = enPassantablePawn, to == enPassantablePawn - 8 || to == enPassantablePawn + 8 {
+                    toPiece = board[enPassantablePawn]
+                    board[enPassantablePawn] = nil
+                }
+
+                enPassantablePawn = abs(from-to) == 16 ? to : nil
             } else if var king = piece as? King {
                 king.firstMove = false
                 board[to] = king
