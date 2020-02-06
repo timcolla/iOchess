@@ -157,7 +157,8 @@ class GameController {
                     possibleSquares.append(possibleSquare)
                     continue
                 }
-                if let enPassantablePawn = enPassantablePawn, (enPassantablePawn == possibleSquare + 8 || enPassantablePawn == possibleSquare - 8) {
+                if let enPassantablePawn = enPassantablePawn,
+                        (enPassantablePawn == possibleSquare + 8 && piece.colour == .white) || (enPassantablePawn == possibleSquare - 8 && piece.colour == .black){
                     print("Take en passantable pawn")
                     possibleSquares.append(possibleSquare)
                 }
