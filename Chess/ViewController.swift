@@ -50,6 +50,12 @@ class ViewController: UIViewController {
         }
     }
 
+    @IBAction func reset(_ sender: Any) {
+        squareViews = [SquareView]()
+        gc.reset()
+        drawBoard()
+    }
+
     @objc func tapSquare(_ recogniser: UITapGestureRecognizer) {
         if let view = recogniser.view as? SquareView {
             gc.selectSquare(index: view.tag)
