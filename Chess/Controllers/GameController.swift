@@ -318,6 +318,14 @@ class GameController {
                 toPiece!.colour != piece.colour {
                 move.capture = true
             }
+
+            if checkForCheck(), let checkedKing = checkedKing {
+                move.check = true
+
+                if possibleSquares(for: checkedKing).isEmpty, possibleSquaresInCheck.isEmpty {
+                    move.checkMate = true
+                }
+            }
         }
         gameLog.add(move)
     }
@@ -360,6 +368,7 @@ class GameController {
         possibleSquaresInCheck.removeAll()
 
         let allDirections: [Int] = [1,9,8,7,-1,-9,-8,-7]
+        var checked = false
         for (index, piece) in board.enumerated() {
             if let piece = piece as? King {
                 for direction in allDirections {
@@ -372,13 +381,21 @@ class GameController {
                             let possibleSquares = self.possibleSquares(for: possibleIndex, preventRecursion: true)
                             if possibleSquares.contains(index) {
                                 checkedKing = index
-                                possibleSquaresInCheck += blockCheckSquares(kingIndex: index, checkedBy: possibleIndex)
-                                return true
+                                checked = true
+                                if possibleSquaresInCheck.isEmpty {
+                                    possibleSquaresInCheck += blockCheckSquares(kingIndex: index, checkedBy: possibleIndex)
+                                } else {
+                                    possibleSquaresInCheck = possibleSquaresInCheck.filter(blockCheckSquares(kingIndex: index, checkedBy: possibleIndex).contains)
+                                }
+//                                return true
                             }
                         }
                     }
                 }
             }
+        }
+        if checked {
+            return true
         }
         checkedKing = nil
         return false
