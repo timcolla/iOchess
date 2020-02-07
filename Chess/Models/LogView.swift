@@ -8,9 +8,11 @@
 
 import UIKit
 
-class LogView: UIStackView {
+class LogView: UIScrollView {
+    @IBOutlet weak var stackView: UIStackView!
+
     func showGameLog(_ gameLog: GameLog) {
-        for arrangedSubView in arrangedSubviews {
+        for arrangedSubView in stackView.arrangedSubviews {
             arrangedSubView.removeFromSuperview()
         }
 //        print(gameLog.toAN())
@@ -26,7 +28,13 @@ class LogView: UIStackView {
             let row = UIStackView(arrangedSubviews: [moveNumber, moveWhite, moveBlack])
             row.distribution = .fillEqually
             row.axis = .horizontal
-            addArrangedSubview(row)
+            stackView.addArrangedSubview(row)
+        }
+
+        layoutIfNeeded()
+        if contentSize.height > bounds.size.height + contentInset.bottom {
+            let bottomOffset = CGPoint(x: 0, y: contentSize.height - bounds.size.height + contentInset.bottom)
+            setContentOffset(bottomOffset, animated: false)
         }
     }
 }

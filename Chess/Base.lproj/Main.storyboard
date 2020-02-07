@@ -23,10 +23,10 @@
                                     <action selector="reset:" destination="BYZ-38-t0r" eventType="touchUpInside" id="giF-ap-t3t"/>
                                 </connections>
                             </button>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4LS-vt-KSu">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4LS-vt-KSu" customClass="LogView" customModule="Chess" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="476" width="414" height="386"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="B2a-cE-Bii" customClass="LogView" customModule="Chess" customModuleProvider="target">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="B2a-cE-Bii">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="20.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="9Ff-Wm-OkP">
@@ -67,6 +67,9 @@
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="zW0-Bb-nry"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="4Rd-XT-egC"/>
+                                <connections>
+                                    <outlet property="stackView" destination="B2a-cE-Bii" id="yZq-Z2-gFk"/>
+                                </connections>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -81,7 +84,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="logView" destination="B2a-cE-Bii" id="5Ga-3O-Eya"/>
+                        <outlet property="logView" destination="4LS-vt-KSu" id="bOh-pI-8FN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
