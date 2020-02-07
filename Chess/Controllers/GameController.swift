@@ -153,7 +153,8 @@ class GameController {
         if let piece = piece as? Pawn {
             for relativeMove in piece.takes {
                 let possibleSquare = relativeMove + index
-                if possibleSquare >= 0, possibleSquare < board.count, let possiblePiece = board[possibleSquare], possiblePiece.colour != piece.colour {
+                if possibleSquare >= 0, possibleSquare < board.count, let possiblePiece = board[possibleSquare], possiblePiece.colour != piece.colour,
+                    abs(index/8-possibleSquare/8) == 1 {
                     possibleSquares.append(possibleSquare)
                     continue
                 }
