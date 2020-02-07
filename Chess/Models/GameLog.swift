@@ -19,18 +19,22 @@ struct GameLog {
     }
 
     /// Convert GameLog to Algebraic Notation
-    func toAN() {
+    func toAN() -> [(Int, String, String)] {
+        var anMoves = [(Int, String, String)]()
         for (i, move) in moves.enumerated() {
             var stringMove = ""
+            var moveNumber: Int?
+
+            // The move number. One move is after both white and black have moved.
+            if (i+1)%2 == 1 {
+                moveNumber = Int(ceil(Double(i+1)/2.0))
+                //                    print(moveNumber)
+            }
             if let castle = move.castle {
                 stringMove += "\(castle)"
             } else {
                 let fromSquare = Square(withIndex: move.from)
 
-                // The move number. One move is after both white and black have moved.
-                if (i+1)%2 == 1 {
-                    print(ceil(Double(i+1)/2.0))
-                }
                 stringMove += move.piece.algebraicNotation
 
                 // If a pawn captures we need to show from what file it captured
@@ -58,9 +62,17 @@ struct GameLog {
                 } else if move.check {
                     stringMove += "+"
                 }
+
             }
 
-            print(stringMove)
+            if let moveNumber = moveNumber {
+                anMoves.append((moveNumber, stringMove, ""))
+            } else if var lastMove = anMoves.last {
+                lastMove.2 = stringMove
+                anMoves[anMoves.count-1] = lastMove
+            }
+//            print(stringMove)
         }
+        return anMoves
     }
 }

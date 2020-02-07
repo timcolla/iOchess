@@ -275,7 +275,7 @@ class GameController {
             board[to+1] = rook
             board[from-4] = nil
             board[from] = nil
-        } else if var king = board[from] as? King, from - to == -2, var rook = board[from-4] as? Rook {
+        } else if var king = board[from] as? King, from - to == -2, var rook = board[from+3] as? Rook {
             // Short castle
             king.firstMove = false
             rook.firstMove = false

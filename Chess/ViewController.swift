@@ -11,12 +11,14 @@ import UIKit
 class ViewController: UIViewController {
     let gc = GameController()
 
+    @IBOutlet weak var logView: LogView!
     var squareViews: [SquareView] = [SquareView]()
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
 
         drawBoard()
+        logView.showGameLog(gc.gameLog)
     }
 
     func drawBoard() {
@@ -54,11 +56,13 @@ class ViewController: UIViewController {
         squareViews = [SquareView]()
         gc.reset()
         drawBoard()
+        logView.showGameLog(gc.gameLog)
     }
 
     @objc func tapSquare(_ recogniser: UITapGestureRecognizer) {
         if let view = recogniser.view as? SquareView {
             gc.selectSquare(index: view.tag)
+            logView.showGameLog(gc.gameLog)
             updateBoard()
 
             if gc.selectedSquare != nil {

@@ -23,18 +23,70 @@
                                     <action selector="reset:" destination="BYZ-38-t0r" eventType="touchUpInside" id="giF-ap-t3t"/>
                                 </connections>
                             </button>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4LS-vt-KSu">
+                                <rect key="frame" x="0.0" y="476" width="414" height="386"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="B2a-cE-Bii" customClass="LogView" customModule="Chess" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="20.5"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="9Ff-Wm-OkP">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="20.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U5M-8k-mxp">
+                                                        <rect key="frame" x="0.0" y="0.0" width="138" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xvj-xK-uey">
+                                                        <rect key="frame" x="138" y="0.0" width="138" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QVe-EE-IOp">
+                                                        <rect key="frame" x="276" y="0.0" width="138" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" priority="2" constant="386" id="E4W-Rf-SFm"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="B2a-cE-Bii" firstAttribute="leading" secondItem="4LS-vt-KSu" secondAttribute="leading" id="1D4-Ek-td9"/>
+                                    <constraint firstItem="B2a-cE-Bii" firstAttribute="top" secondItem="4LS-vt-KSu" secondAttribute="top" id="BrK-uu-T7L"/>
+                                    <constraint firstItem="B2a-cE-Bii" firstAttribute="width" secondItem="4LS-vt-KSu" secondAttribute="width" id="MgQ-pe-tko"/>
+                                    <constraint firstAttribute="bottom" secondItem="B2a-cE-Bii" secondAttribute="bottom" id="Obb-Zm-7uZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="B2a-cE-Bii" secondAttribute="trailing" id="xI6-1c-hty"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="zW0-Bb-nry"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="4Rd-XT-egC"/>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="0t1-Ng-tf1" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="3Vv-cY-PUR"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="4LS-vt-KSu" secondAttribute="trailing" id="IwE-6P-Rhb"/>
+                            <constraint firstItem="4LS-vt-KSu" firstAttribute="top" secondItem="0t1-Ng-tf1" secondAttribute="bottom" constant="8" id="Mh9-ya-8GA"/>
+                            <constraint firstItem="4LS-vt-KSu" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Wmj-27-sQ1"/>
                             <constraint firstItem="0t1-Ng-tf1" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="Z7G-Ie-70W"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="4LS-vt-KSu" secondAttribute="bottom" id="oaq-lY-p4W"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="logView" destination="B2a-cE-Bii" id="5Ga-3O-Eya"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="139" y="99"/>
+            <point key="canvasLocation" x="137.68115942028987" y="98.4375"/>
         </scene>
     </scenes>
 </document>
