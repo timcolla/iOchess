@@ -41,9 +41,8 @@ struct GameLog {
                 if move.piece is Pawn, move.capture {
                     stringMove += fromSquare.file
                 }
-
                 // If two or more pieces on the same rank could have moved here, show from what file it came
-                if move.ambiguousFile {
+                else if move.ambiguousFile {
                     stringMove += fromSquare.file
                 }
                 // If two or more pieces on the same file could have moved here, show from what rank it came
