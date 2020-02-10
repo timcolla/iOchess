@@ -7,27 +7,38 @@
 //
 
 import XCTest
+@testable import Chess
 
 class ChessTests: XCTestCase {
 
+    let board: [Piece?] = [Rook(colour: .black), Knight(colour: .black), Bishop(colour: .black), Queen(colour: .black), King(colour: .black), Bishop(colour: .black), Knight(colour: .black), Rook(colour: .black),
+    Pawn(colour: .black), Pawn(colour: .black), Pawn(colour: .black), Pawn(colour: .black), Pawn(colour: .black), Pawn(colour: .black), Pawn(colour: .black), Pawn(colour: .black),
+    nil, nil, nil, nil, nil, nil, nil, nil,
+    nil, nil, nil, nil, nil, nil, nil, nil,
+    nil, nil, nil, nil, nil, nil, nil, nil,
+    nil, nil, nil, nil, nil, nil, nil, nil,
+    Pawn(colour: .white), Pawn(colour: .white), Pawn(colour: .white), Pawn(colour: .white), Pawn(colour: .white), Pawn(colour: .white), Pawn(colour: .white), Pawn(colour: .white),
+    Rook(colour: .white), Knight(colour: .white), Bishop(colour: .white), Queen(colour: .white), King(colour: .white), Bishop(colour: .white), Knight(colour: .white), Rook(colour: .white)]
+
+    let gc = GameController()
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
+
+        gc.board = board
     }
 
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() {
+    func testPawnMove() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
+        gc.selectSquare(index: 53)
+        gc.selectSquare(index: 45)
 
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        measure {
-            // Put the code you want to measure the time of here.
-        }
+        XCTAssert(gc.board[53] == nil)
+        XCTAssert(gc.board[45] is Pawn)
     }
 
 }
