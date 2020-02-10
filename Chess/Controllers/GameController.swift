@@ -374,27 +374,22 @@ class GameController {
     func checkForCheck() -> Bool {
         possibleSquaresInCheck.removeAll()
 
-        let allDirections: [Int] = [1,9,8,7,-1,-9,-8,-7]
         var checked = false
         for (index, piece) in board.enumerated() {
             if let piece = piece as? King {
-                for direction in allDirections {
-                    for i in 1...7 {
-                        let possibleIndex = direction*i+index
-                        if possibleIndex >= 0,
-                            possibleIndex < board.count,
-                            let possiblePiece = board[possibleIndex],
-                            possiblePiece.colour != piece.colour {
-                            let possibleSquares = self.possibleSquares(for: possibleIndex, preventRecursion: true)
-                            if possibleSquares.contains(index) {
-                                checkedKing = index
-                                checked = true
-                                if possibleSquaresInCheck.isEmpty {
-                                    possibleSquaresInCheck += blockCheckSquares(kingIndex: index, checkedBy: possibleIndex)
-                                } else {
-                                    possibleSquaresInCheck = possibleSquaresInCheck.filter(blockCheckSquares(kingIndex: index, checkedBy: possibleIndex).contains)
-                                }
-//                                return true
+                for (possibleIndex, horsey) in board.enumerated() {
+                    if possibleIndex >= 0,
+                        possibleIndex < board.count,
+                        let possiblePiece = horsey,
+                        possiblePiece.colour != piece.colour {
+                        let possibleSquares = self.possibleSquares(for: possibleIndex, preventRecursion: true)
+                        if possibleSquares.contains(index) {
+                            checkedKing = index
+                            checked = true
+                            if possibleSquaresInCheck.isEmpty {
+                                possibleSquaresInCheck += blockCheckSquares(kingIndex: index, checkedBy: possibleIndex)
+                            } else {
+                                possibleSquaresInCheck = possibleSquaresInCheck.filter(blockCheckSquares(kingIndex: index, checkedBy: possibleIndex).contains)
                             }
                         }
                     }
@@ -440,10 +435,14 @@ class GameController {
         print("block squares: ")
         print(direction)
         var blockCheckSquares = [Int]()
-        for i in 1...(kingIndex-checkedBy)/direction {
-            print(i)
-            print(kingIndex-i*direction)
-            blockCheckSquares.append(kingIndex-i*direction)
+        if board[checkedBy] is Knight {
+            blockCheckSquares.append(checkedBy)
+        } else {
+            for i in 1...(kingIndex-checkedBy)/direction {
+                print(i)
+                print(kingIndex-i*direction)
+                blockCheckSquares.append(kingIndex-i*direction)
+            }
         }
         print("\n\n")
         return blockCheckSquares
