@@ -69,6 +69,9 @@ class GameController {
 
         if let checkedKing = checkedKing, index != checkedKing, selectedSquare != checkedKing {
             if selectedSquare == nil {
+                guard let selectedPiece = board[index], selectedPiece.colour == currentPlayer else {
+                    return false
+                }
                 let possibleSquares = possibleSquaresInCheck.filter(self.possibleSquares(for: index).contains)
                 if possibleSquares.count > 0 {
                     selectedSquare = index
