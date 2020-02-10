@@ -18,6 +18,7 @@
 		172346502229845C005923D1 /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1723464F2229845C005923D1 /* GameController.swift */; };
 		1736666323ECB47700E2D74E /* LogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1736666223ECB47700E2D74E /* LogView.swift */; };
 		1736666523EDAE9B00E2D74E /* NotificationName+Chess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1736666423EDAE9B00E2D74E /* NotificationName+Chess.swift */; };
+		1736666723F1DB9F00E2D74E /* StalemateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1736666623F1DB9F00E2D74E /* StalemateTests.swift */; };
 		176F9E2A23E38F0100D68A6F /* GameLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176F9E2923E38F0100D68A6F /* GameLog.swift */; };
 		176F9E2C23E38F6700D68A6F /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176F9E2B23E38F6700D68A6F /* Move.swift */; };
 		17C13E6F23E45A2E0070DDB3 /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C13E6E23E45A2E0070DDB3 /* Square.swift */; };
@@ -49,6 +50,7 @@
 		1723464F2229845C005923D1 /* GameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
 		1736666223ECB47700E2D74E /* LogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogView.swift; sourceTree = "<group>"; };
 		1736666423EDAE9B00E2D74E /* NotificationName+Chess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Chess.swift"; sourceTree = "<group>"; };
+		1736666623F1DB9F00E2D74E /* StalemateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StalemateTests.swift; sourceTree = "<group>"; };
 		176F9E2923E38F0100D68A6F /* GameLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLog.swift; sourceTree = "<group>"; };
 		176F9E2B23E38F6700D68A6F /* Move.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Move.swift; sourceTree = "<group>"; };
 		17C13E6E23E45A2E0070DDB3 /* Square.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Square.swift; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 			children = (
 				1716488223E2EFF00055CB46 /* ChessTests.swift */,
 				1716488423E2EFF00055CB46 /* Info.plist */,
+				1736666623F1DB9F00E2D74E /* StalemateTests.swift */,
 			);
 			path = ChessTests;
 			sourceTree = "<group>";
@@ -237,6 +240,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1736666723F1DB9F00E2D74E /* StalemateTests.swift in Sources */,
 				1716488323E2EFF00055CB46 /* ChessTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
