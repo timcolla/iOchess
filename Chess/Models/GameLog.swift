@@ -21,6 +21,8 @@ struct GameLog {
     mutating func promoted(to piece: Piece, check: Bool = false, checkMate: Bool = false) {
         if var lastMove = moves.last {
             lastMove.promotedTo = piece
+            lastMove.check = check
+            lastMove.checkMate = checkMate
 
             moves[moves.count - 1] = lastMove
         }
