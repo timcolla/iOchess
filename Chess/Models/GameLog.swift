@@ -18,6 +18,14 @@ struct GameLog {
         moves.append(move)
     }
 
+    mutating func promoted(to piece: Piece, check: Bool = false, checkMate: Bool = false) {
+        if var lastMove = moves.last {
+            lastMove.promotedTo = piece
+
+            moves[moves.count - 1] = lastMove
+        }
+    }
+
     /// Convert GameLog to Algebraic Notation
     func toAN() -> [(Int, String, String)] {
         var anMoves = [(Int, String, String)]()
@@ -55,6 +63,10 @@ struct GameLog {
                 }
                 // Show the square a piece moved to
                 stringMove += Square(withIndex: move.to).toAN()
+
+                if let promotedTo = move.promotedTo {
+                    stringMove += "=\(promotedTo.algebraicNotation)"
+                }
 
                 if move.checkMate {
                     stringMove += "#"

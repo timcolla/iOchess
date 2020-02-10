@@ -29,6 +29,8 @@ struct Move {
     var ambiguousRank: Bool = false
     /// What type of castling move this was
     var castle: Castle?
+    /// What piece a Pawn promoted to
+    var promotedTo: Piece?
 }
 
 /** Denotes a short (king side) or long (queen side) castle

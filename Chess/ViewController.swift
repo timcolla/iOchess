@@ -13,9 +13,13 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var logView: LogView!
     var squareViews: [SquareView] = [SquareView]()
+    var promotingViews: [SquareView] =  [SquareView]()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+
+        NotificationCenter.default.addObserver(self, selector: #selector(promotePawn(_:)), name: .onPromotePawn, object: nil)
 
         drawBoard()
         logView.showGameLog(gc.gameLog)
@@ -94,6 +98,48 @@ class ViewController: UIViewController {
         }
     }
 
+    @objc func promotePawn(_ notification:Notification) {
+        if let promotion = notification.object as? Promotion {
+            let pawnIndex = promotion.index
+            let colour = promotion.colour
+            let promotions: [Piece] = [Queen(colour: colour), Bishop(colour: colour), Knight(colour: colour), Rook(colour: colour)]
+            let size = 30
+            for (i, piece) in promotions.enumerated() {
+                let direction = colour == .white ? 8 : -8
+                let index = pawnIndex + direction*i
+                let view = SquareView(frame: CGRect(x: 100 + (index % 8) * size - 1 * (index % 8), y: 100 + index/8 * size - 1 * (index / 8), width: size, height: size))
+                view.layer.borderColor = UIColor.red.cgColor
+                view.layer.borderWidth = 1
+
+                let label = UILabel(frame: CGRect(x: 0, y: 0, width: size, height: size))
+                label.text = piece.stringValue
+                view.label = label
+                view.addSubview(label)
+
+                view.tag = i
+                view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(promoteTo(_:))))
+                view.piece = piece
+
+                view.backgroundColor = .red
+
+                self.view.addSubview(view)
+                promotingViews.append(view)
+            }
+        }
+    }
+
+    @objc func promoteTo(_ recogniser: UITapGestureRecognizer) {
+        if let view = recogniser.view as? SquareView, let piece = view.piece {
+            gc.promotePawn(to: piece)
+            logView.showGameLog(gc.gameLog)
+            updateBoard()
+
+            for view in promotingViews {
+                view.removeFromSuperview()
+            }
+            promotingViews.removeAll()
+        }
+    }
 }
 
 class SquareView: UIView {

@@ -22,6 +22,7 @@ class GameController {
     var possibleSquaresInCheck = [Int]()
 
     var enPassantablePawn: Int?
+    var promotingPawn: Int?
 
     var currentPlayer: Colour = .white
 
@@ -159,7 +160,7 @@ class GameController {
                     continue
                 }
                 if let enPassantablePawn = enPassantablePawn,
-                        (enPassantablePawn == possibleSquare + 8 && piece.colour == .white) || (enPassantablePawn == possibleSquare - 8 && piece.colour == .black){
+                        (enPassantablePawn == possibleSquare + 8 && piece.colour == .white) || (enPassantablePawn == possibleSquare - 8 && piece.colour == .black) {
                     print("Take en passantable pawn")
                     possibleSquares.append(possibleSquare)
                 }
@@ -303,6 +304,11 @@ class GameController {
                 }
 
                 enPassantablePawn = abs(from-to) == 16 ? to : nil
+
+                if to/8 == 0 || to/8 == 7 {
+                    promotingPawn = to
+                    NotificationCenter.default.post(name: .onPromotePawn, object: Promotion(index: to, colour: pawn.colour))
+                }
             } else if var king = piece as? King {
                 king.firstMove = false
                 board[to] = king
@@ -431,5 +437,22 @@ class GameController {
         }
         print("\n\n")
         return blockCheckSquares
+    }
+
+    func promotePawn(to piece: Piece) {
+        if let promotingPawn = promotingPawn {
+            board[promotingPawn] = piece
+            self.promotingPawn = nil
+
+            if checkForCheck(), let checkedKing = checkedKing {
+                gameLog.promoted(to: piece, check: true)
+
+                if possibleSquares(for: checkedKing).isEmpty, possibleSquaresInCheck.isEmpty {
+                    gameLog.promoted(to: piece, checkMate: true)
+                }
+            } else {
+                gameLog.promoted(to: piece)
+            }
+        }
     }
 }
