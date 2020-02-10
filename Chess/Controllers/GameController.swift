@@ -72,7 +72,7 @@ class GameController {
                 guard let selectedPiece = board[index], selectedPiece.colour == currentPlayer else {
                     return false
                 }
-                let possibleSquares = possibleSquaresInCheck.filter(self.possibleSquares(for: index).contains)
+                let possibleSquares = possibleSquaresInCheck.filter(self.possibleSquares(for: index, board: board).contains)
                 if possibleSquares.count > 0 {
                     selectedSquare = index
                     return true
@@ -80,7 +80,7 @@ class GameController {
                 selectedSquare = nil
                 return false
             } else {
-                let possibleSquares = possibleSquaresInCheck.filter(self.possibleSquares(for: selectedSquare!).contains)
+                let possibleSquares = possibleSquaresInCheck.filter(self.possibleSquares(for: selectedSquare!, board: board).contains)
                 if possibleSquares.contains(index) {
                     currentPlayer = currentPlayer.toggled()
                     movePiece(from: selectedSquare!, to: index)
@@ -96,7 +96,7 @@ class GameController {
         if let selectedSquare = selectedSquare {
             if let selectedPiece = board[index], let potentialPiece = board[selectedSquare],
             selectedPiece.colour == potentialPiece.colour {
-                if possibleSquares(for: index).count > 0 {
+                if possibleSquares(for: index, board: board).count > 0 {
                     self.selectedSquare = index
                     return true
                 } else {
@@ -104,7 +104,7 @@ class GameController {
                     return false
                 }
             } else {
-                let possibleSquares = self.possibleSquares(for: selectedSquare)
+                let possibleSquares = self.possibleSquares(for: selectedSquare, board: board)
 
                 // move piece
                 if possibleSquares.contains(index) {
@@ -118,7 +118,7 @@ class GameController {
             if board[index] != nil,
                 let possiblePiece = board[index],
                 possiblePiece.colour == currentPlayer {
-                if possibleSquares(for: index).count > 0 {
+                if possibleSquares(for: index, board: board).count > 0 {
                     selectedSquare = index
                     return true
                 } else {
@@ -136,20 +136,20 @@ class GameController {
         for (oponentIndex, possibleOponentPiece) in board.enumerated() {
             if let oponentPiece = possibleOponentPiece,
                 oponentPiece.colour == oponentColour {
-                forbiddenSquares += self.possibleSquares(for: oponentIndex, preventRecursion: true)
+                forbiddenSquares += self.possibleSquares(for: oponentIndex, board: board, preventRecursion: true)
             }
         }
         return forbiddenSquares
     }
 
     /// Returns array of possible indeces for selected piece to move to
-    func possibleSquares(for index: Int, preventRecursion: Bool = false) -> [Int] {
+    func possibleSquares(for index: Int, board: [Piece?], preventRecursion: Bool = false) -> [Int] {
         guard let piece = board[index] else {
             return [Int]()
         }
 
         if checkedKing != nil, !preventRecursion, !(piece is King) {
-            let possibleSquares = possibleSquaresInCheck.filter(self.possibleSquares(for: index, preventRecursion: true).contains)
+            let possibleSquares = possibleSquaresInCheck.filter(self.possibleSquares(for: index, board: board, preventRecursion: true).contains)
             return possibleSquares
         }
 
@@ -335,7 +335,7 @@ class GameController {
             if let checkedKing = checkedKing {
                 move.check = true
 
-                if possibleSquares(for: checkedKing).isEmpty, possibleSquaresInCheck.isEmpty {
+                if possibleSquares(for: checkedKing, board: board).isEmpty, possibleSquaresInCheck.isEmpty {
                     move.checkMate = true
                 }
             } else {
@@ -362,7 +362,7 @@ class GameController {
                 type(of: piece!) == type(of: fromPiece),
                 piece!.colour == fromPiece.colour {
 
-                if possibleSquares(for: index).contains(to) && index != from {
+                if possibleSquares(for: index, board: board).contains(to) && index != from {
                     let fromSquare = Square(withIndex: from)
                     let indexSquare = Square(withIndex: index)
                     if fromSquare.rank == indexSquare.rank {
@@ -383,7 +383,7 @@ class GameController {
         var possibleSquares = [Int]()
         for (index, piece) in board.enumerated() {
             if let piece = piece, piece.colour == currentPlayer {
-                possibleSquares += self.possibleSquares(for: index)
+                possibleSquares += self.possibleSquares(for: index, board: board)
             }
         }
 
@@ -402,7 +402,7 @@ class GameController {
                         possibleIndex < board.count,
                         let possiblePiece = horsey,
                         possiblePiece.colour != piece.colour {
-                        let possibleSquares = self.possibleSquares(for: possibleIndex, preventRecursion: true)
+                        let possibleSquares = self.possibleSquares(for: possibleIndex, board: board, preventRecursion: true)
                         if possibleSquares.contains(index) {
                             checkedKing = index
                             checked = true
@@ -420,7 +420,7 @@ class GameController {
             var allPossibleBlockMoves = [Int]()
             for (index, piece) in board.enumerated() {
                 if piece?.colour == checkedKing.colour, !(piece is King) {
-                    allPossibleBlockMoves += possibleSquaresInCheck.filter(self.possibleSquares(for: index, preventRecursion: true).contains)
+                    allPossibleBlockMoves += possibleSquaresInCheck.filter(self.possibleSquares(for: index, board: board, preventRecursion: true).contains)
                 }
             }
             possibleSquaresInCheck = possibleSquaresInCheck.filter(allPossibleBlockMoves.contains)
@@ -479,7 +479,7 @@ class GameController {
             if let checkedKing = checkedKing {
                 gameLog.promoted(to: piece, check: true)
 
-                if possibleSquares(for: checkedKing).isEmpty, possibleSquaresInCheck.isEmpty {
+                if possibleSquares(for: checkedKing, board: board).isEmpty, possibleSquaresInCheck.isEmpty {
                     gameLog.promoted(to: piece, checkMate: true)
                 }
             } else {

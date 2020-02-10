@@ -92,7 +92,7 @@ class ViewController: UIViewController {
         colourCheckers()
         squareViews[index].backgroundColor = .yellow
 
-        let possibleSquares = gc.possibleSquares(for: index)
+        let possibleSquares = gc.possibleSquares(for: index, board: gc.board)
         for possibleSquare in possibleSquares {
             squareViews[possibleSquare].backgroundColor = .blue
         }
