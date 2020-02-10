@@ -401,6 +401,16 @@ class GameController {
                 }
             }
         }
+        if let checkedKingIndex = checkedKing, let checkedKing = board[checkedKingIndex] as? King {
+            var allPossibleBlockMoves = [Int]()
+            for (index, piece) in board.enumerated() {
+                if piece?.colour == checkedKing.colour, !(piece is King) {
+                    allPossibleBlockMoves += possibleSquaresInCheck.filter(self.possibleSquares(for: index, preventRecursion: true).contains)
+                }
+            }
+            possibleSquaresInCheck = possibleSquaresInCheck.filter(allPossibleBlockMoves.contains)
+
+        }
         if checked {
             return true
         }
