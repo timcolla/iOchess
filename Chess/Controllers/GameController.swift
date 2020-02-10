@@ -247,6 +247,26 @@ class GameController {
                 }
             }
         }
+
+        // Only allow squares that don't put your king in check after the move
+        if !preventRecursion {
+            var possiblePossibleSquares = [Int]()
+            var checked = false
+            for square in possibleSquares {
+                var possibleBoard = board
+                possibleBoard[square] = possibleBoard[index]
+                possibleBoard[index] = nil
+
+                let (checkedKing, possibleSquaresInCheck) = checkForCheck(board: possibleBoard)
+                if let checkedKing = checkedKing, let king = board[checkedKing], king.colour == currentPlayer {
+                    possiblePossibleSquares += possibleSquaresInCheck
+                    checked = true
+                }
+            }
+            if checked {
+                possibleSquares = possibleSquares.filter(possiblePossibleSquares.contains)
+            }
+        }
         return possibleSquares
     }
 
