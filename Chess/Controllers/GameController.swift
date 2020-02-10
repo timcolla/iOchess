@@ -329,7 +329,10 @@ class GameController {
                 move.capture = true
             }
 
-            if checkForCheck(), let checkedKing = checkedKing {
+            let (checkedKing, possibleSquaresInCheck) = checkForCheck(board: board)
+            self.checkedKing = checkedKing
+            self.possibleSquaresInCheck = possibleSquaresInCheck
+            if let checkedKing = checkedKing {
                 move.check = true
 
                 if possibleSquares(for: checkedKing).isEmpty, possibleSquaresInCheck.isEmpty {
@@ -387,8 +390,9 @@ class GameController {
         return possibleSquares.isEmpty
     }
 
-    func checkForCheck() -> Bool {
-        possibleSquaresInCheck.removeAll()
+    func checkForCheck(board: [Piece?]) -> (checkedKing: Int?, possibleSquaresInCheck: [Int]) {
+        var possibleSquaresInCheck = [Int]()
+        var checkedKing: Int?
 
         var checked = false
         for (index, piece) in board.enumerated() {
@@ -423,10 +427,10 @@ class GameController {
 
         }
         if checked {
-            return true
+            return (checkedKing: checkedKing, possibleSquaresInCheck: possibleSquaresInCheck)
         }
         checkedKing = nil
-        return false
+        return (checkedKing: nil, possibleSquaresInCheck: possibleSquaresInCheck)
     }
 
     func blockCheckSquares(kingIndex: Int, checkedBy: Int) -> [Int] {
@@ -469,7 +473,10 @@ class GameController {
             board[promotingPawn] = piece
             self.promotingPawn = nil
 
-            if checkForCheck(), let checkedKing = checkedKing {
+            let (checkedKing, possibleSquaresInCheck) = checkForCheck(board: board)
+            self.checkedKing = checkedKing
+            self.possibleSquaresInCheck = possibleSquaresInCheck
+            if let checkedKing = checkedKing {
                 gameLog.promoted(to: piece, check: true)
 
                 if possibleSquares(for: checkedKing).isEmpty, possibleSquaresInCheck.isEmpty {
