@@ -258,7 +258,7 @@ class GameController {
                 possibleBoard[index] = nil
 
                 let (checkedKing, possibleSquaresInCheck) = checkForCheck(board: possibleBoard)
-                if let checkedKing = checkedKing, let king = board[checkedKing], king.colour == currentPlayer {
+                if let checkedKing = checkedKing, let king = possibleBoard[checkedKing], king.colour == currentPlayer {
                     possiblePossibleSquares += possibleSquaresInCheck
                     checked = true
                 }
