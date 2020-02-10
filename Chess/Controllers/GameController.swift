@@ -79,8 +79,8 @@ class GameController {
             } else {
                 let possibleSquares = possibleSquaresInCheck.filter(self.possibleSquares(for: selectedSquare!).contains)
                 if possibleSquares.contains(index) {
-                    movePiece(from: selectedSquare!, to: index)
                     currentPlayer = currentPlayer.toggled()
+                    movePiece(from: selectedSquare!, to: index)
                     selectedSquare = nil
                     return false
                 }
@@ -105,8 +105,8 @@ class GameController {
 
                 // move piece
                 if possibleSquares.contains(index) {
-                    movePiece(from: selectedSquare, to: index)
                     currentPlayer = currentPlayer.toggled()
+                    movePiece(from: selectedSquare, to: index)
                 }
 
                 self.selectedSquare = nil
@@ -332,6 +332,8 @@ class GameController {
                 if possibleSquares(for: checkedKing).isEmpty, possibleSquaresInCheck.isEmpty {
                     move.checkMate = true
                 }
+            } else {
+                move.stalemate = checkForStalemate()
             }
         }
         gameLog.add(move)
@@ -369,6 +371,17 @@ class GameController {
         }
 
         return (ambiguousFile, ambiguousRank)
+    }
+
+    func checkForStalemate() -> Bool {
+        var possibleSquares = [Int]()
+        for (index, piece) in board.enumerated() {
+            if let piece = piece, piece.colour == currentPlayer {
+                possibleSquares += self.possibleSquares(for: index)
+            }
+        }
+
+        return possibleSquares.isEmpty
     }
 
     func checkForCheck() -> Bool {
