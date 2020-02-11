@@ -11,7 +11,7 @@ import XCTest
 
 class ChessTests: XCTestCase {
 
-    let board: [Piece?] = [Rook(colour: .black), Knight(colour: .black), Bishop(colour: .black), Queen(colour: .black), King(colour: .black), Bishop(colour: .black), Knight(colour: .black), Rook(colour: .black),
+    var board: [Piece?] = [Rook(colour: .black), Knight(colour: .black), Bishop(colour: .black), Queen(colour: .black), King(colour: .black), Bishop(colour: .black), Knight(colour: .black), Rook(colour: .black),
     Pawn(colour: .black), Pawn(colour: .black), Pawn(colour: .black), Pawn(colour: .black), Pawn(colour: .black), Pawn(colour: .black), Pawn(colour: .black), Pawn(colour: .black),
     nil, nil, nil, nil, nil, nil, nil, nil,
     nil, nil, nil, nil, nil, nil, nil, nil,
@@ -53,5 +53,27 @@ class ChessTests: XCTestCase {
         // Still Black's turn, try to select White Pawn
         gc.selectSquare(index: 45)
         XCTAssert(gc.selectedSquare == nil)
+    }
+
+    func testEnPassant() {
+        board[33] = Pawn(colour: .white)
+        gc.board = board
+
+        // Move white Pawn 1 square
+        gc.selectSquare(index: 33)
+        gc.selectSquare(index: 25)
+
+        // Move black Pawn 2 squares
+        gc.selectSquare(index: 8)
+        gc.selectSquare(index: 24)
+
+        XCTAssert(gc.enPassantablePawn == 24)
+
+        // Take Pawn en passant
+        gc.selectSquare(index: 25)
+        gc.selectSquare(index: 16)
+
+        XCTAssert(gc.board[24] == nil)
+        XCTAssert((gc.board[16] as! Pawn).colour == .white)
     }
 }
