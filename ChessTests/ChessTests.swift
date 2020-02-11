@@ -41,4 +41,17 @@ class ChessTests: XCTestCase {
         XCTAssert(gc.board[45] is Pawn)
     }
 
+    func testTurnBased() {
+        // White Pawn
+        gc.selectSquare(index: 53)
+        gc.selectSquare(index: 45)
+
+        // Select Black Pawn, but don't move
+        gc.selectSquare(index: 9)
+        XCTAssert(gc.selectedSquare == 9)
+
+        // Still Black's turn, try to select White Pawn
+        gc.selectSquare(index: 45)
+        XCTAssert(gc.selectedSquare == nil)
+    }
 }
