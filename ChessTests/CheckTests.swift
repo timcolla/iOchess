@@ -59,4 +59,17 @@ class CheckTests: XCTestCase {
 
         XCTAssert(gc.board[3] is Knight)
     }
+
+    func testMoveKingOutOfCheck() {
+        testCheck()
+
+        let possibleSquares = gc.possibleSquares(for: 4, board: gc.board)
+        XCTAssert(possibleSquares.count == 1)
+        XCTAssert(possibleSquares.contains(13))
+
+        gc.selectSquare(index: 4)
+        gc.selectSquare(index: 13)
+
+        XCTAssert(gc.board[13] is King)
+    }
 }
