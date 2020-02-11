@@ -12,7 +12,7 @@ import XCTest
 class CheckTests: XCTestCase {
 
     let board: [Piece?] = [nil, nil, nil, nil, King(colour: .black), nil, nil, nil,
-                           nil, nil, nil, nil, Pawn(colour: .black), nil, nil, nil,
+                           nil, Knight(colour: .black), nil, nil, Pawn(colour: .black), nil, nil, nil,
                            nil, nil, nil, nil, Queen(colour: .white), Bishop(colour: .white), nil, nil,
     nil, nil, nil, nil, nil, nil, nil, nil,
     nil, nil, nil, nil, nil, nil, nil, nil,
@@ -47,4 +47,16 @@ class CheckTests: XCTestCase {
         XCTAssert(!lastMove.stalemate)
     }
 
+    func testBlockCheck() {
+        testCheck()
+
+        let possibleSquares = gc.possibleSquares(for: 9, board: gc.board)
+        XCTAssert(possibleSquares.count == 1)
+        XCTAssert(possibleSquares.contains(3))
+
+        gc.selectSquare(index: 9)
+        gc.selectSquare(index: 3)
+
+        XCTAssert(gc.board[3] is Knight)
+    }
 }
