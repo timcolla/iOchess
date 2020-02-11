@@ -63,7 +63,7 @@ class GameController {
      */
     @discardableResult
     func selectSquare(index: Int) -> Bool {
-        guard index >= 0, index < board.count else {
+        guard index >= 0, index < board.count, promotingPawn == nil else {
             return false
         }
 
