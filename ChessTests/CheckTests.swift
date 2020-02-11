@@ -1,5 +1,5 @@
 //
-//  StalemateTests.swift
+//  CheckTests.swift
 //  ChessTests
 //
 //  Created by Tim Colla on 10/02/2020.
@@ -9,7 +9,7 @@
 import XCTest
 @testable import Chess
 
-class StalemateTests: XCTestCase {
+class CheckTests: XCTestCase {
 
     let board: [Piece?] = [nil, nil, nil, nil, King(colour: .black), nil, nil, nil,
                            nil, nil, nil, nil, Pawn(colour: .black), nil, nil, nil,
@@ -31,20 +31,20 @@ class StalemateTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testStalemate() {
+    func testCheck() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        gc.selectSquare(index: 21)
-        gc.selectSquare(index: 12)
+        gc.selectSquare(index: 20)
+        gc.selectSquare(index: 2)
 
         guard let lastMove = gc.gameLog.moves.last else {
             XCTAssert(false)
             return
         }
 
-        XCTAssert(lastMove.stalemate)
-        XCTAssert(!lastMove.check)
+        XCTAssert(lastMove.check)
         XCTAssert(!lastMove.checkMate)
+        XCTAssert(!lastMove.stalemate)
     }
 
 }
