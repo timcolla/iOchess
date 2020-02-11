@@ -20,6 +20,7 @@
 		1736666523EDAE9B00E2D74E /* NotificationName+Chess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1736666423EDAE9B00E2D74E /* NotificationName+Chess.swift */; };
 		1736666723F1DB9F00E2D74E /* StalemateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1736666623F1DB9F00E2D74E /* StalemateTests.swift */; };
 		1736666923F216A800E2D74E /* CheckTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1736666823F216A800E2D74E /* CheckTests.swift */; };
+		1736666B23F2C03D00E2D74E /* CheckmateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1736666A23F2C03D00E2D74E /* CheckmateTests.swift */; };
 		176F9E2A23E38F0100D68A6F /* GameLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176F9E2923E38F0100D68A6F /* GameLog.swift */; };
 		176F9E2C23E38F6700D68A6F /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176F9E2B23E38F6700D68A6F /* Move.swift */; };
 		17C13E6F23E45A2E0070DDB3 /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C13E6E23E45A2E0070DDB3 /* Square.swift */; };
@@ -53,6 +54,7 @@
 		1736666423EDAE9B00E2D74E /* NotificationName+Chess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Chess.swift"; sourceTree = "<group>"; };
 		1736666623F1DB9F00E2D74E /* StalemateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StalemateTests.swift; sourceTree = "<group>"; };
 		1736666823F216A800E2D74E /* CheckTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckTests.swift; sourceTree = "<group>"; };
+		1736666A23F2C03D00E2D74E /* CheckmateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckmateTests.swift; sourceTree = "<group>"; };
 		176F9E2923E38F0100D68A6F /* GameLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLog.swift; sourceTree = "<group>"; };
 		176F9E2B23E38F6700D68A6F /* Move.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Move.swift; sourceTree = "<group>"; };
 		17C13E6E23E45A2E0070DDB3 /* Square.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Square.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 				1716488423E2EFF00055CB46 /* Info.plist */,
 				1736666623F1DB9F00E2D74E /* StalemateTests.swift */,
 				1736666823F216A800E2D74E /* CheckTests.swift */,
+				1736666A23F2C03D00E2D74E /* CheckmateTests.swift */,
 			);
 			path = ChessTests;
 			sourceTree = "<group>";
@@ -246,6 +249,7 @@
 				1736666923F216A800E2D74E /* CheckTests.swift in Sources */,
 				1736666723F1DB9F00E2D74E /* StalemateTests.swift in Sources */,
 				1716488323E2EFF00055CB46 /* ChessTests.swift in Sources */,
+				1736666B23F2C03D00E2D74E /* CheckmateTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

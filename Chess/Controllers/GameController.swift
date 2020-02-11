@@ -352,10 +352,11 @@ class GameController {
             self.checkedKing = checkedKing
             self.possibleSquaresInCheck = possibleSquaresInCheck
             if let checkedKing = checkedKing {
-                move.check = true
 
                 if possibleSquares(for: checkedKing, board: board).isEmpty, possibleSquaresInCheck.isEmpty {
                     move.checkMate = true
+                } else {
+                    move.check = true
                 }
             } else {
                 move.stalemate = checkForStalemate()
