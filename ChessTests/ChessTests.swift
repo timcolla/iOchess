@@ -76,4 +76,34 @@ class ChessTests: XCTestCase {
         XCTAssert(gc.board[24] == nil)
         XCTAssert((gc.board[16] as! Pawn).colour == .white)
     }
+
+    func testEnPassantNotAllowed() {
+        board[41] = Pawn(colour: .white)
+        gc.board = board
+
+        // Move white Pawn 1 square
+        gc.selectSquare(index: 41)
+        gc.selectSquare(index: 33)
+
+        // Move black Pawn 1 square
+        gc.selectSquare(index: 8)
+        gc.selectSquare(index: 16)
+
+        // Move white Pawn 1 square
+        gc.selectSquare(index: 33)
+        gc.selectSquare(index: 25)
+
+        // Move Black Pawn 1 square
+        gc.selectSquare(index: 16)
+        gc.selectSquare(index: 24)
+
+        // Try to take en passant
+        gc.selectSquare(index: 25)
+        gc.selectSquare(index: 16)
+
+        XCTAssert(gc.board[24] != nil)
+        XCTAssert(gc.board[16] == nil)
+        XCTAssert((gc.board[25] as! Pawn).colour == .white)
+        XCTAssert((gc.board[24] as! Pawn).colour == .black)
+    }
 }
