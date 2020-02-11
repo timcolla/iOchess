@@ -54,6 +54,7 @@ class CheckTests: XCTestCase {
         XCTAssert(possibleSquares.count == 1)
         XCTAssert(possibleSquares.contains(3))
 
+        // Move Knight to block check
         gc.selectSquare(index: 9)
         gc.selectSquare(index: 3)
 
@@ -71,5 +72,26 @@ class CheckTests: XCTestCase {
         gc.selectSquare(index: 13)
 
         XCTAssert(gc.board[13] is King)
+    }
+
+    /// This test tries to move a piece that blocks an opponent's piece from checking the King,
+    /// so not allowed to be moved unless it also blocks a check
+    func testMoveCheckBlockingPiece() {
+        testCheck()
+
+        // Move Knight to block check
+        gc.selectSquare(index: 9)
+        gc.selectSquare(index: 3)
+
+        XCTAssert(gc.board[3] is Knight)
+
+        // Move Queen one square
+        gc.selectSquare(index: 2)
+        gc.selectSquare(index: 1)
+
+        XCTAssert(gc.currentPlayer == .black)
+
+        let possibleSquares = gc.possibleSquares(for: 3, board: gc.board)
+        XCTAssert(possibleSquares.count == 0)
     }
 }
