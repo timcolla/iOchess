@@ -410,8 +410,54 @@ class GameController {
         return possibleSquares.isEmpty
     }
 
+    func checkForImpossibleCheckmate() -> Bool {
+        var bishops: [(piece: Piece?, index: Int)] = [(piece: Piece?, index: Int)]()
+        var knights: [Piece?] = [Piece]()
+        var otherPieces: [Piece?] = [Piece]()
+        for (index, piece) in board.enumerated() {
+            if piece is Bishop {
+                bishops.append((piece: piece, index: index))
+            } else if piece is Knight {
+                knights.append(piece)
+            } else if !(piece is King), piece != nil {
+                otherPieces.append(piece)
+            }
+        }
+
+        if !otherPieces.isEmpty {
+            return false
+        }
+
+        if bishops.isEmpty, knights.count == 1 {
+            return true
+        }
+
+        if knights.isEmpty, bishops.count == 1 {
+            return true
+        }
+
+        if bishops.count == 2,
+            let bishop1 = bishops[0].piece,
+            let bishop2 = bishops[1].piece,
+            bishop1.colour != bishop2.colour {
+
+            // Check if ranks are both even or uneven
+            if (bishops[0].index/8) % 2 == (bishops[1].index/8) % 2 {
+                // Columns both even or uneven
+                if bishops[0].index % 2 == bishops[1].index % 2 {
+                    return true
+                }
+            // Columns opposite even or uneven
+            } else if bishops[0].index % 2 != bishops[1].index % 2 {
+                return true
+            }
+        }
+
+        return false
+    }
+
     func checkForDraw() -> Bool {
-        return checkForStalemate()
+        return checkForStalemate() || checkForImpossibleCheckmate()
     }
 
     func checkForCheck(board: [Piece?]) -> (checkedKing: Int?, possibleSquaresInCheck: [Int]) {
