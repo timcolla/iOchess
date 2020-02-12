@@ -11,7 +11,7 @@ import XCTest
 
 class ChessTests: XCTestCase {
 
-    var board: [Piece?] = [Rook(colour: .black), Knight(colour: .black), Bishop(colour: .black), Queen(colour: .black), King(colour: .black), Bishop(colour: .black), Knight(colour: .black), Rook(colour: .black),
+    var testBoard: [Piece?] = [Rook(colour: .black), Knight(colour: .black), Bishop(colour: .black), Queen(colour: .black), King(colour: .black), Bishop(colour: .black), Knight(colour: .black), Rook(colour: .black),
     Pawn(colour: .black), Pawn(colour: .black), Pawn(colour: .black), Pawn(colour: .black), Pawn(colour: .black), Pawn(colour: .black), Pawn(colour: .black), Pawn(colour: .black),
     nil, nil, nil, nil, nil, nil, nil, nil,
     nil, nil, nil, nil, nil, nil, nil, nil,
@@ -24,7 +24,7 @@ class ChessTests: XCTestCase {
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
 
-        gc.board = board
+        gc.board = testBoard
     }
 
     override func tearDown() {
@@ -56,8 +56,8 @@ class ChessTests: XCTestCase {
     }
 
     func testEnPassant() {
-        board[33] = Pawn(colour: .white)
-        gc.board = board
+        testBoard[33] = Pawn(colour: .white)
+        gc.board = testBoard
 
         // Move white Pawn 1 square
         gc.selectSquare(index: 33)
@@ -78,8 +78,8 @@ class ChessTests: XCTestCase {
     }
 
     func testEnPassantNotAllowed() {
-        board[41] = Pawn(colour: .white)
-        gc.board = board
+        testBoard[41] = Pawn(colour: .white)
+        gc.board = testBoard
 
         // Move white Pawn 1 square
         gc.selectSquare(index: 41)
