@@ -106,4 +106,18 @@ class ChessTests: XCTestCase {
         XCTAssert((gc.board[25] as! Pawn).colour == .white)
         XCTAssert((gc.board[24] as! Pawn).colour == .black)
     }
+
+    func testPromotePawn() {
+        testBoard[7] = nil
+        testBoard[15] = Pawn(colour: .white)
+        gc.board = testBoard
+
+        gc.selectSquare(index: 15)
+        gc.selectSquare(index: 7)
+
+        gc.promotePawn(to: Queen(colour: .white))
+
+        XCTAssert(gc.board[15] == nil)
+        XCTAssert(gc.board[7] is Queen)
+    }
 }
