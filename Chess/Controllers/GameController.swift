@@ -403,7 +403,7 @@ class GameController {
         var possibleSquares = [Int]()
         for (index, piece) in board.enumerated() {
             if let piece = piece, piece.colour == currentPlayer {
-                possibleSquares += self.possibleSquares(for: index, board: board)
+                possibleSquares += self.possibleSquares(for: index, board: board, preventRecursion: true)
             }
         }
 
