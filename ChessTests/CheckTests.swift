@@ -94,4 +94,14 @@ class CheckTests: XCTestCase {
         let possibleSquares = gc.possibleSquares(for: 3, board: gc.board)
         XCTAssert(possibleSquares.count == 0)
     }
+
+    func testKingTakeResultingInCheck() {
+        // Bishop capture Pawn
+        gc.selectSquare(index: 21)
+        gc.selectSquare(index: 12)
+
+        XCTAssert(gc.board[12] is Bishop)
+        XCTAssert(gc.board[4] is King)
+        XCTAssert(!gc.possibleSquares(for: 4, board: board).contains(12))
+    }
 }
