@@ -135,7 +135,7 @@ class GameController {
         var forbiddenSquares = [Int]()
         for (oponentIndex, possibleOponentPiece) in board.enumerated() {
             if let oponentPiece = possibleOponentPiece,
-                oponentPiece.colour == oponentColour {
+                oponentPiece.colour == oponentColour, !(oponentPiece is Pawn) {
                 forbiddenSquares += self.possibleSquares(for: oponentIndex, board: board, preventRecursion: true)
             }
         }

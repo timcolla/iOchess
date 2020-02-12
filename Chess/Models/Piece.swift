@@ -103,7 +103,9 @@ struct Queen: Piece {
 struct King: Piece {
     var colour: Colour
     var firstMove: Bool = true
-    var relativeMoves: [Int] = [-1,-2,-7,-8,-9,1,2,7,8,9]
+    var relativeMoves: [Int] {
+        return firstMove ? [-1,-2,-7,-8,-9,1,2,7,8,9] : [-1,-7,-8,-9,1,7,8,9]
+    }
     var range: Int = 1
 
     var stringValue: String {
