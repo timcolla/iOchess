@@ -74,7 +74,7 @@ struct GameLog {
                     stringMove += "#"
                 } else if move.check {
                     stringMove += "+"
-                } else if move.stalemate {
+                } else if move.draw {
                     stringMove += "½"
                 }
 

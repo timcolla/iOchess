@@ -44,7 +44,7 @@ class CheckTests: XCTestCase {
 
         XCTAssert(lastMove.check)
         XCTAssert(!lastMove.checkMate)
-        XCTAssert(!lastMove.stalemate)
+        XCTAssert(!lastMove.draw)
     }
 
     func testBlockCheck() {

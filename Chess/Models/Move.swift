@@ -23,8 +23,8 @@ struct Move {
     var check: Bool = false
     /// Whether the move resulted in a checkmate
     var checkMate: Bool = false
-    /// Whether the move resulted in a stalemate
-    var stalemate: Bool = false
+    /// Whether the move resulted in a draw (stalemate, no checkmate possible, etc.)
+    var draw: Bool = false
     /// Whether more than one of the same piece were possible and on the same file
     var ambiguousFile: Bool = false
     /// Whether more than one of the same piece were possible and on the same rank

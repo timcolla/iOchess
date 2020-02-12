@@ -44,7 +44,7 @@ class CheckmateTests: XCTestCase {
 
         XCTAssert(lastMove.checkMate)
         XCTAssert(!lastMove.check)
-        XCTAssert(!lastMove.stalemate)
+        XCTAssert(!lastMove.draw)
     }
 
 }

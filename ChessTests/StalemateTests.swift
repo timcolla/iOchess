@@ -42,7 +42,7 @@ class StalemateTests: XCTestCase {
             return
         }
 
-        XCTAssert(lastMove.stalemate)
+        XCTAssert(lastMove.draw)
         XCTAssert(!lastMove.check)
         XCTAssert(!lastMove.checkMate)
     }

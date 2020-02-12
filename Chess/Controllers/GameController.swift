@@ -359,7 +359,7 @@ class GameController {
                     move.check = true
                 }
             } else {
-                move.stalemate = checkForStalemate()
+                move.draw = checkForDraw()
             }
         }
         gameLog.add(move)
@@ -408,6 +408,10 @@ class GameController {
         }
 
         return possibleSquares.isEmpty
+    }
+
+    func checkForDraw() -> Bool {
+        return checkForStalemate()
     }
 
     func checkForCheck(board: [Piece?]) -> (checkedKing: Int?, possibleSquaresInCheck: [Int]) {
