@@ -17,6 +17,9 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var timeBlack: UILabel!
     @IBOutlet weak var timeWhite: UILabel!
+    @IBOutlet weak var chessBoard: UIView!
+
+    var shouldDrawBoard = true
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -24,7 +27,6 @@ class ViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(promotePawn(_:)), name: .onPromotePawn, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(clockUpdate(_:)), name: .onClockChange, object: nil)
 
-        drawBoard()
         logView.showGameLog(gc.gameLog)
 
         timeBlack.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
@@ -32,12 +34,32 @@ class ViewController: UIViewController {
         timeWhite.text = gc.clock.timeString(from: gc.clock.whiteTime)
     }
 
+    override func viewDidLayoutSubviews() {
+
+        if shouldDrawBoard {
+            drawBoard()
+            shouldDrawBoard = false
+        }
+    }
+
     func drawBoard() {
-        let size = 30
+        for squareView in squareViews {
+            squareView.removeFromSuperview()
+        }
+        squareViews.removeAll()
+
+        chessBoard.layer.borderColor = UIColor.systemOrange.cgColor
+        chessBoard.layer.borderWidth = 1
+        chessBoard.backgroundColor = .clear
+
+        let size = chessBoard.frame.width / 8.0
+        print(size)
         for i in 0..<gc.board.count {
-            let view = SquareView(frame: CGRect(x: 100 + (i % 8) * size - 1 * (i % 8), y: 100 + i/8 * size - 1 * (i / 8), width: size, height: size))
-            view.layer.borderColor = UIColor.red.cgColor
-            view.layer.borderWidth = 1
+            let column = CGFloat(i % 8)
+            let row = CGFloat(i / 8)
+            let x = CGFloat(column) * size
+            let y = CGFloat(row) * size
+            let view = SquareView(frame: CGRect(x: x, y: y, width: size, height: size))
 
             let label = UILabel(frame: CGRect(x: 0, y: 0, width: size, height: size))
             label.text = gc.board[i]?.stringValue
@@ -48,7 +70,7 @@ class ViewController: UIViewController {
             view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapSquare(_:))))
             view.piece = gc.board[i]
 
-            self.view.addSubview(view)
+            self.chessBoard.addSubview(view)
             self.squareViews.append(view)
         }
 
@@ -66,6 +88,7 @@ class ViewController: UIViewController {
     @IBAction func reset(_ sender: Any) {
         squareViews = [SquareView]()
         gc.reset()
+        shouldDrawBoard = true
         drawBoard()
         logView.showGameLog(gc.gameLog)
     }
