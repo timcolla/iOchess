@@ -143,7 +143,7 @@ class ViewController: UIViewController {
     }
 
     @objc func clockUpdate(_ notification: Notification) {
-        guard let clock = notification.userInfo as? [Colour: Int] else {
+        guard let clock = notification.userInfo as? [Colour: String] else {
             print("Clock error")
             return
         }

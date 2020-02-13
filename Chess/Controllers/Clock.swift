@@ -35,9 +35,22 @@ class Clock {
 
             NotificationCenter.default.post(name: .onClockChange,
                                             object: nil,
-                                            userInfo: [Colour.black: self.blackTime,
-                                                       Colour.white: self.whiteTime])
+                                            userInfo: [Colour.black: self.timeString(from: self.blackTime),
+                                                       Colour.white: self.timeString(from: self.whiteTime)])
         })
+    }
+
+    func timeString(from time: Int) -> String {
+        let minutes = time/60
+        let seconds = time%60
+        var timeString = "\(minutes):"
+
+        if seconds < 10 {
+            timeString += "0"
+        }
+        timeString += String(seconds)
+
+        return timeString
     }
 
     func reset() {
@@ -49,7 +62,7 @@ class Clock {
 
         NotificationCenter.default.post(name: .onClockChange,
                                         object: nil,
-                                        userInfo: [Colour.black: self.blackTime,
-                                                   Colour.white: self.whiteTime])
+                                        userInfo: [Colour.black: timeString(from: blackTime),
+                                                   Colour.white: timeString(from: whiteTime)])
     }
 }
