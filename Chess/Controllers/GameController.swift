@@ -42,7 +42,7 @@ class GameController {
         clock.stopClock()
     }
 
-    func reset() {
+    func resetBoard() {
         board = [Rook(colour: .black), Knight(colour: .black), Bishop(colour: .black), Queen(colour: .black), King(colour: .black), Bishop(colour: .black), Knight(colour: .black), Rook(colour: .black),
                 Pawn(colour: .black), Pawn(colour: .black), Pawn(colour: .black), Pawn(colour: .black), Pawn(colour: .black), Pawn(colour: .black), Pawn(colour: .black), Pawn(colour: .black),
                 nil, nil, nil, nil, nil, nil, nil, nil,
@@ -51,6 +51,10 @@ class GameController {
                 nil, nil, nil, nil, nil, nil, nil, nil,
                 Pawn(colour: .white), Pawn(colour: .white), Pawn(colour: .white), Pawn(colour: .white), Pawn(colour: .white), Pawn(colour: .white), Pawn(colour: .white), Pawn(colour: .white),
                 Rook(colour: .white), Knight(colour: .white), Bishop(colour: .white), Queen(colour: .white), King(colour: .white), Bishop(colour: .white), Knight(colour: .white), Rook(colour: .white)]
+    }
+
+    func reset() {
+        resetBoard()
 
         selectedSquare = nil
         gameLog = GameLog()
@@ -578,6 +582,13 @@ class GameController {
             } else {
                 gameLog.promoted(to: piece)
             }
+        }
+    }
+
+    func replayMove(from: Int, to: Int) {
+        if let piece = board[from] {
+            board[from] = nil
+            board[to] = piece
         }
     }
 }

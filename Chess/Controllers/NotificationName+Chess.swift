@@ -12,6 +12,7 @@ extension Notification.Name {
     static let onPromotePawn = Notification.Name("onPromotePawn")
     static let onClockChange = Notification.Name("onClockChange")
     static let lostOnTime = Notification.Name("lostOnTime")
+    static let replayMoves = Notification.Name("replayMoves")
 }
 
 struct Promotion {

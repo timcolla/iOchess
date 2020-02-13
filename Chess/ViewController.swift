@@ -26,6 +26,7 @@ class ViewController: UIViewController {
 
         NotificationCenter.default.addObserver(self, selector: #selector(promotePawn(_:)), name: .onPromotePawn, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(clockUpdate(_:)), name: .onClockChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(replayMoves(_:)), name: .replayMoves, object: nil)
 
         logView.showGameLog(gc.gameLog)
 
@@ -179,6 +180,20 @@ class ViewController: UIViewController {
 
         timeBlack.text = clock[.black]
         timeWhite.text = clock[.white]
+    }
+
+    @objc func replayMoves(_ notification: Notification) {
+        guard let moves = notification.userInfo?["moves"] as? [Move] else {
+            print("Replay notification error")
+            return
+        }
+
+        gc.resetBoard()
+
+        for move in moves {
+            gc.replayMove(from: move.from, to: move.to)
+        }
+        updateBoard()
     }
 }
 
