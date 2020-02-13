@@ -27,10 +27,19 @@ class GameController {
 
     var currentPlayer: Colour = .white
 
+    var gameOver = false
+
     init() {
         board = []
 
         reset()
+
+        NotificationCenter.default.addObserver(self, selector: #selector(stopGame), name: .lostOnTime, object: nil)
+    }
+
+    @objc func stopGame(_ notification: Notification? = nil) {
+        gameOver = true
+        clock.stopClock()
     }
 
     func reset() {
@@ -66,6 +75,9 @@ class GameController {
      */
     @discardableResult
     func selectSquare(index: Int) -> Bool {
+        guard !gameOver else {
+            return false
+        }
         guard index >= 0, index < board.count, promotingPawn == nil else {
             return false
         }
@@ -360,11 +372,16 @@ class GameController {
 
                 if possibleSquares(for: checkedKing, board: board).isEmpty, possibleSquaresInCheck.isEmpty {
                     move.checkMate = true
+                    stopGame()
                 } else {
                     move.check = true
                 }
             } else {
                 move.draw = checkForDraw()
+
+                if move.draw {
+                    stopGame()
+                }
             }
         }
         gameLog.add(move)
