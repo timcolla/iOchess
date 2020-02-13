@@ -20,6 +20,7 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
 
         NotificationCenter.default.addObserver(self, selector: #selector(promotePawn(_:)), name: .onPromotePawn, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(clockUpdate(_:)), name: .onClockChange, object: nil)
 
         drawBoard()
         logView.showGameLog(gc.gameLog)
@@ -139,6 +140,16 @@ class ViewController: UIViewController {
             }
             promotingViews.removeAll()
         }
+    }
+
+    @objc func clockUpdate(_ notification: Notification) {
+        guard let clock = notification.userInfo as? [Colour: Int] else {
+            print("Clock error")
+            return
+        }
+
+        print("Black: \(clock[.black]!)")
+        print("White: \(clock[.white]!)")
     }
 }
 

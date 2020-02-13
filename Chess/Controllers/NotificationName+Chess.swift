@@ -10,6 +10,7 @@ import Foundation
 
 extension Notification.Name {
     static let onPromotePawn = Notification.Name("onPromotePawn")
+    static let onClockChange = Notification.Name("onClockChange")
 }
 
 struct Promotion {

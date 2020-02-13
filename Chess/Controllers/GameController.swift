@@ -17,6 +17,7 @@ class GameController {
     var board: [Piece?]
     var selectedSquare: Int?
     var gameLog = GameLog()
+    let clock = Clock()
 
     var checkedKing: Int?
     var possibleSquaresInCheck = [Int]()
@@ -48,6 +49,8 @@ class GameController {
         possibleSquaresInCheck = [Int]()
         enPassantablePawn = nil
         currentPlayer = .white
+
+        clock.reset()
     }
 
     /** What index on the board was selected.
@@ -284,6 +287,8 @@ class GameController {
             let piece = board[from] else {
             return
         }
+        clock.start(for: currentPlayer)
+
         if !(piece is Pawn) {
             enPassantablePawn = nil
         }
