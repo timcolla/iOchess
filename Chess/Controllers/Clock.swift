@@ -46,6 +46,12 @@ class Clock {
             case .white:
                 self.whiteTime -= 1
             }
+            if self.blackTime == 0 || self.whiteTime == 0 {
+                NotificationCenter.default.post(name: .lostOnTime,
+                                                object: nil,
+                                                userInfo: ["loser": player])
+                self.stopClock()
+            }
 
             NotificationCenter.default.post(name: .onClockChange,
                                             object: nil,
@@ -65,6 +71,11 @@ class Clock {
         timeString += String(seconds)
 
         return timeString
+    }
+
+    func stopClock() {
+        timer?.invalidate()
+        timer = nil
     }
 
     func reset() {
