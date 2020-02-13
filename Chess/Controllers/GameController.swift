@@ -59,6 +59,7 @@ class GameController {
         enPassantablePawn = nil
         currentPlayer = .white
 
+        gameOver = false
         clock.reset()
     }
 
