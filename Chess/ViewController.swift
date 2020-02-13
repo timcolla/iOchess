@@ -15,6 +15,8 @@ class ViewController: UIViewController {
     var squareViews: [SquareView] = [SquareView]()
     var promotingViews: [SquareView] =  [SquareView]()
 
+    @IBOutlet weak var timeBlack: UILabel!
+    @IBOutlet weak var timeWhite: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -24,6 +26,10 @@ class ViewController: UIViewController {
 
         drawBoard()
         logView.showGameLog(gc.gameLog)
+
+        timeBlack.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
+        timeBlack.text = gc.clock.timeString(from: gc.clock.blackTime)
+        timeWhite.text = gc.clock.timeString(from: gc.clock.whiteTime)
     }
 
     func drawBoard() {
@@ -148,8 +154,8 @@ class ViewController: UIViewController {
             return
         }
 
-        print("Black: \(clock[.black]!)")
-        print("White: \(clock[.white]!)")
+        timeBlack.text = clock[.black]
+        timeWhite.text = clock[.white]
     }
 }
 

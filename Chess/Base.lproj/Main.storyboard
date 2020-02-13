@@ -71,20 +71,38 @@
                                     <outlet property="stackView" destination="B2a-cE-Bii" id="yZq-Z2-gFk"/>
                                 </connections>
                             </scrollView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="otf-av-M2S">
+                                <rect key="frame" x="20" y="94" width="42" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ssj-V7-hPB">
+                                <rect key="frame" x="20" y="314.5" width="42" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="0t1-Ng-tf1" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="3Vv-cY-PUR"/>
+                            <constraint firstItem="Ssj-V7-hPB" firstAttribute="top" secondItem="otf-av-M2S" secondAttribute="bottom" constant="200" id="FlS-JJ-ANe"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="4LS-vt-KSu" secondAttribute="trailing" id="IwE-6P-Rhb"/>
                             <constraint firstItem="4LS-vt-KSu" firstAttribute="top" secondItem="0t1-Ng-tf1" secondAttribute="bottom" constant="8" id="Mh9-ya-8GA"/>
                             <constraint firstItem="4LS-vt-KSu" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Wmj-27-sQ1"/>
                             <constraint firstItem="0t1-Ng-tf1" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="Z7G-Ie-70W"/>
+                            <constraint firstItem="Ssj-V7-hPB" firstAttribute="leading" secondItem="otf-av-M2S" secondAttribute="leading" id="o5p-ng-QMo"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="4LS-vt-KSu" secondAttribute="bottom" id="oaq-lY-p4W"/>
+                            <constraint firstItem="otf-av-M2S" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="pFQ-rR-K8q"/>
+                            <constraint firstItem="otf-av-M2S" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="zSd-u6-fIg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="logView" destination="4LS-vt-KSu" id="bOh-pI-8FN"/>
+                        <outlet property="timeBlack" destination="otf-av-M2S" id="aRp-Qh-hkF"/>
+                        <outlet property="timeWhite" destination="Ssj-V7-hPB" id="eYa-tr-oQ9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
