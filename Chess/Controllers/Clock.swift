@@ -25,6 +25,20 @@ class Clock {
         timer?.invalidate()
         timer = nil
 
+        if player == .black, blackTime == time {
+            blackTime -= 1
+            NotificationCenter.default.post(name: .onClockChange,
+                                            object: nil,
+                                            userInfo: [Colour.black: self.timeString(from: self.blackTime),
+                                                       Colour.white: self.timeString(from: self.whiteTime)])
+        } else if player == .white, whiteTime == time {
+            whiteTime -= 1
+            NotificationCenter.default.post(name: .onClockChange,
+                                            object: nil,
+                                            userInfo: [Colour.black: self.timeString(from: self.blackTime),
+                                                       Colour.white: self.timeString(from: self.whiteTime)])
+        }
+
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
             switch player {
             case .black:
