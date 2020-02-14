@@ -32,7 +32,7 @@ class GameController {
         didSet {
             if playBack {
                 clock.stopClock()
-            } else {
+            } else if !gameOver {
                 clock.start(for: currentPlayer)
             }
         }
