@@ -189,7 +189,8 @@ class ViewController: UIViewController {
         if !gc.playBack {
             return
         }
-        guard let moves = notification.userInfo?["moves"] as? [Move] else {
+        guard let moves = notification.userInfo?["moves"] as? [Move],
+            let label = notification.userInfo?["label"] as? UILabel else {
             print("Replay notification error")
             return
         }
@@ -200,6 +201,11 @@ class ViewController: UIViewController {
             gc.replayMove(from: move.from, to: move.to)
         }
         updateBoard()
+
+        label.layer.backgroundColor = UIColor.orange.cgColor
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
+            label.layer.backgroundColor = UIColor.clear.cgColor
+        }, completion: nil)
     }
 
     @IBAction func toggleReplay(_ sender: UIButton) {

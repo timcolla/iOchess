@@ -21,12 +21,13 @@ class LogView: UIScrollView {
 
         for (index, row) in gameLog.toAN().enumerated() {
             let moveNumber = UILabel()
-            moveNumber.textAlignment = .center
+            moveNumber.textAlignment = .right
             moveNumber.text = "\(row.0)"
 
             let moveWhite = UILabel()
             moveWhite.text = row.1
             moveWhite.tag = index * 2
+            moveWhite.textAlignment = .center
             moveWhite.isUserInteractionEnabled = true
 
             let tapGestureWhite = UITapGestureRecognizer(target: self, action: #selector(replayMove))
@@ -35,6 +36,7 @@ class LogView: UIScrollView {
             let moveBlack = UILabel()
             moveBlack.text = row.2
             moveBlack.tag = index * 2 + 1
+            moveBlack.textAlignment = .center
             moveBlack.isUserInteractionEnabled = true
 
             let tapGestureBlack = UITapGestureRecognizer(target: self, action: #selector(replayMove))
@@ -60,7 +62,8 @@ class LogView: UIScrollView {
                 moves.append(gameLog.moves[i])
             }
 
-            NotificationCenter.default.post(name: .replayMoves, object: nil, userInfo: ["moves": moves])
+            NotificationCenter.default.post(name: .replayMoves, object: nil, userInfo: ["moves": moves,
+                                                                                        "label": moveView])
         }
     }
 }
