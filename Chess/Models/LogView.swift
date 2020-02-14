@@ -45,6 +45,7 @@ class LogView: UIScrollView {
             let row = UIStackView(arrangedSubviews: [moveNumber, moveWhite, moveBlack])
             row.distribution = .fillEqually
             row.axis = .horizontal
+            row.heightAnchor.constraint(greaterThanOrEqualToConstant: 25).isActive = true
             stackView.addArrangedSubview(row)
         }
 
