@@ -93,16 +93,25 @@
                                     <action selector="reset:" destination="BYZ-38-t0r" eventType="touchUpInside" id="giF-ap-t3t"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VMu-Bc-LAg">
+                                <rect key="frame" x="242.5" y="438" width="76" height="30"/>
+                                <state key="normal" title="Replay Log"/>
+                                <connections>
+                                    <action selector="toggleReplay:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lsU-c0-1rm"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="0t1-Ng-tf1" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="3Vv-cY-PUR"/>
+                            <constraint firstItem="VMu-Bc-LAg" firstAttribute="centerY" secondItem="0t1-Ng-tf1" secondAttribute="centerY" id="4d1-Pf-eSP"/>
                             <constraint firstItem="eiw-IA-Gc1" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="4rq-Gq-aTf"/>
                             <constraint firstItem="otf-av-M2S" firstAttribute="top" secondItem="eiw-IA-Gc1" secondAttribute="top" id="Hqq-8Q-KW7"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="4LS-vt-KSu" secondAttribute="trailing" id="IwE-6P-Rhb"/>
                             <constraint firstItem="4LS-vt-KSu" firstAttribute="top" secondItem="0t1-Ng-tf1" secondAttribute="bottom" constant="8" id="Mh9-ya-8GA"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="eiw-IA-Gc1" secondAttribute="trailing" constant="20" id="POd-Lv-xIX"/>
                             <constraint firstItem="4LS-vt-KSu" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Wmj-27-sQ1"/>
+                            <constraint firstItem="VMu-Bc-LAg" firstAttribute="leading" secondItem="0t1-Ng-tf1" secondAttribute="trailing" constant="16" id="XuL-da-nju"/>
                             <constraint firstItem="0t1-Ng-tf1" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" priority="250" id="Z7G-Ie-70W"/>
                             <constraint firstItem="Ssj-V7-hPB" firstAttribute="bottom" secondItem="eiw-IA-Gc1" secondAttribute="bottom" id="f9N-La-W59"/>
                             <constraint firstItem="eiw-IA-Gc1" firstAttribute="leading" secondItem="otf-av-M2S" secondAttribute="trailing" constant="25" id="l6c-sn-tgi"/>
@@ -116,6 +125,7 @@
                     <connections>
                         <outlet property="chessBoard" destination="eiw-IA-Gc1" id="4x8-Nc-R5C"/>
                         <outlet property="logView" destination="4LS-vt-KSu" id="bOh-pI-8FN"/>
+                        <outlet property="replayButton" destination="VMu-Bc-LAg" id="3K6-ue-i94"/>
                         <outlet property="timeBlack" destination="otf-av-M2S" id="aRp-Qh-hkF"/>
                         <outlet property="timeWhite" destination="Ssj-V7-hPB" id="eYa-tr-oQ9"/>
                     </connections>

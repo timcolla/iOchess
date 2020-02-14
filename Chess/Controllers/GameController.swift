@@ -28,6 +28,15 @@ class GameController {
     var currentPlayer: Colour = .white
 
     var gameOver = false
+    var playBack = false {
+        didSet {
+            if playBack {
+                clock.stopClock()
+            } else {
+                clock.start(for: currentPlayer)
+            }
+        }
+    }
 
     init() {
         board = []
@@ -80,7 +89,7 @@ class GameController {
      */
     @discardableResult
     func selectSquare(index: Int) -> Bool {
-        guard !gameOver else {
+        guard !gameOver, !playBack else {
             return false
         }
         guard index >= 0, index < board.count, promotingPawn == nil else {

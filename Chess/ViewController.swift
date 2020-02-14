@@ -20,6 +20,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var chessBoard: UIView!
 
     var shouldDrawBoard = true
+
+    @IBOutlet weak var replayButton: UIButton!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -183,6 +186,9 @@ class ViewController: UIViewController {
     }
 
     @objc func replayMoves(_ notification: Notification) {
+        if !gc.playBack {
+            return
+        }
         guard let moves = notification.userInfo?["moves"] as? [Move] else {
             print("Replay notification error")
             return
@@ -194,6 +200,16 @@ class ViewController: UIViewController {
             gc.replayMove(from: move.from, to: move.to)
         }
         updateBoard()
+    }
+
+    @IBAction func toggleReplay(_ sender: UIButton) {
+        if gc.playBack {
+            replayButton.setTitle("Replay Log", for: .normal)
+        } else {
+            replayButton.setTitle("Resume Game", for: .normal)
+        }
+
+        gc.playBack.toggle()
     }
 }
 
