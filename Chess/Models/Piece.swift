@@ -9,7 +9,7 @@
 import Foundation
 
 /// What side the piece belongs to
-enum Colour {
+enum Colour: String, Codable {
     case white
     case black
 
@@ -23,7 +23,7 @@ enum Colour {
 }
 
 /// Piece protocol for all pieces to conform to
-protocol Piece {
+protocol Piece: Codable {
     /// Where a piece can mvoe
     var relativeMoves: [Int] { get }
     /// How far a piece can move
@@ -38,7 +38,7 @@ protocol Piece {
     init(colour: Colour)
 }
 
-struct Pawn: Piece {
+struct Pawn: Piece, Codable {
     var colour: Colour
     var firstMove: Bool = true
     var relativeMoves: [Int] {
