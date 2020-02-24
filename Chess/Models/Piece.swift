@@ -55,9 +55,7 @@ struct Pawn: Piece, Codable {
         return colour == .white ? "♙" : "♟"
     }
 
-    var algebraicNotation: String {
-        return ""
-    }
+    var algebraicNotation: String = ""
 
     init(colour: Colour) {
         self.colour = colour
@@ -73,9 +71,7 @@ struct Bishop: Piece {
         return colour == .white ? "♗" : "♝"
     }
 
-    var algebraicNotation: String {
-        return "B"
-    }
+    var algebraicNotation: String = "B"
 
     init(colour: Colour) {
         self.colour = colour
@@ -91,9 +87,7 @@ struct Queen: Piece {
         return colour == .white ? "♕" : "♛"
     }
 
-    var algebraicNotation: String {
-        return "Q"
-    }
+    var algebraicNotation: String = "Q"
 
     init(colour: Colour) {
         self.colour = colour
@@ -112,9 +106,7 @@ struct King: Piece {
         return colour == .white ? "♔" : "♚"
     }
 
-    var algebraicNotation: String {
-        return "K"
-    }
+    var algebraicNotation: String = "K"
 
     init(colour: Colour) {
         self.colour = colour
@@ -131,9 +123,7 @@ struct Rook: Piece {
         return colour == .white ? "♖" : "♜"
     }
 
-    var algebraicNotation: String {
-        return "R"
-    }
+    var algebraicNotation: String = "R"
 
     init(colour: Colour) {
         self.colour = colour
@@ -149,9 +139,7 @@ struct Knight: Piece {
         return colour == .white ? "♘" : "♞"
     }
 
-    var algebraicNotation: String {
-        return "N"
-    }
+    var algebraicNotation: String = "N"
 
     init(colour: Colour) {
         self.colour = colour

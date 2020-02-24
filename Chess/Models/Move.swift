@@ -59,6 +59,12 @@ struct Move: Codable {
         var piece: Piece
         do {
             piece = try values.decode(Pawn.self, forKey: .piece)
+            if let possibleKing = piece as? Pawn {
+
+                if (possibleKing.algebraicNotation == "K") {
+                    piece = try values.decode(King.self, forKey: .piece)
+                }
+            }
         }
         catch {
             do {
@@ -71,9 +77,9 @@ struct Move: Codable {
                 catch {
                     piece = try values.decode(Bishop.self, forKey: .piece)
 
-                    if piece.relativeMoves == [-1,-7,-8,-9,1,7,8,9] {
+                    if piece.algebraicNotation == "Q" {
                         piece = try values.decode(Queen.self, forKey: .piece)
-                    } else {
+                    } else if piece.algebraicNotation == "N" {
                         piece = try values.decode(Knight.self, forKey: .piece)
                     }
                 }
