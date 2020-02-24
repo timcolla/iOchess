@@ -217,6 +217,21 @@ class ViewController: UIViewController {
 
         gc.playBack.toggle()
     }
+
+    @IBAction func exportLog(_ sender: UIButton) {
+        print(gc.gameLog.moves)
+
+        if let moveData = try? JSONEncoder().encode(gc.gameLog.moves) {
+            print(String(decoding: moveData, as: UTF8.self))
+
+            do {
+                let moves = try JSONDecoder().decode([Move].self, from: moveData)
+                print(moves)
+            } catch {
+                print(error)
+            }
+        }
+    }
 }
 
 class SquareView: UIView {
