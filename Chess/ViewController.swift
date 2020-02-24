@@ -234,12 +234,9 @@ class ViewController: UIViewController {
                 let file = documentsDir.appendingPathComponent("Chess_log.json")
                 FileManager.default.createFile(atPath: file.path, contents: moveData, attributes: nil)
 
-                if let data = FileManager.default.contents(atPath: file.path) {
-
-                    let items: [Any] = [data]
-                    let ac = UIActivityViewController(activityItems: items, applicationActivities: nil)
-                    present(ac, animated: true)
-                }
+                let items: [Any] = [file]
+                let ac = UIActivityViewController(activityItems: items, applicationActivities: nil)
+                present(ac, animated: true)
             }
 
 
