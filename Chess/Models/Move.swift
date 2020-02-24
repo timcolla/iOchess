@@ -63,26 +63,18 @@ struct Move: Codable {
 
                 if (possibleKing.algebraicNotation == "K") {
                     piece = try values.decode(King.self, forKey: .piece)
+                } else if (possibleKing.algebraicNotation == "R") {
+                    piece = try values.decode(Rook.self, forKey: .piece)
                 }
             }
         }
         catch {
-            do {
-                piece = try values.decode(King.self, forKey: .piece)
-            }
-            catch {
-                do {
-                    piece = try values.decode(Rook.self, forKey: .piece)
-                }
-                catch {
-                    piece = try values.decode(Bishop.self, forKey: .piece)
+            piece = try values.decode(Bishop.self, forKey: .piece)
 
-                    if piece.algebraicNotation == "Q" {
-                        piece = try values.decode(Queen.self, forKey: .piece)
-                    } else if piece.algebraicNotation == "N" {
-                        piece = try values.decode(Knight.self, forKey: .piece)
-                    }
-                }
+            if piece.algebraicNotation == "Q" {
+                piece = try values.decode(Queen.self, forKey: .piece)
+            } else if piece.algebraicNotation == "N" {
+                piece = try values.decode(Knight.self, forKey: .piece)
             }
         }
 
