@@ -219,12 +219,11 @@ class ViewController: UIViewController {
     }
 
     @IBAction func exportLog(_ sender: UIButton) {
-        print(gc.gameLog.moves)
-
         gc.stopGame()
 
-        if let moveData = try? JSONEncoder().encode(gc.gameLog.moves) {
-            print(String(decoding: moveData, as: UTF8.self))
+        let jsonEncoder = JSONEncoder()
+        jsonEncoder.outputFormatting = .prettyPrinted
+        if let moveData = try? jsonEncoder.encode(gc.gameLog.moves) {
 
             if let documentsDir = try? FileManager.default.url(for: .documentDirectory,
             in: .userDomainMask,
@@ -237,14 +236,6 @@ class ViewController: UIViewController {
                 let items: [Any] = [file]
                 let ac = UIActivityViewController(activityItems: items, applicationActivities: nil)
                 present(ac, animated: true)
-            }
-
-
-            do {
-                let moves = try JSONDecoder().decode([Move].self, from: moveData)
-                print(moves)
-            } catch {
-                print(error)
             }
         }
     }
