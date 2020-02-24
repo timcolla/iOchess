@@ -221,22 +221,10 @@ class ViewController: UIViewController {
     @IBAction func exportLog(_ sender: UIButton) {
         gc.stopGame()
 
-        let jsonEncoder = JSONEncoder()
-        jsonEncoder.outputFormatting = .prettyPrinted
-        if let moveData = try? jsonEncoder.encode(gc.gameLog.moves) {
-
-            if let documentsDir = try? FileManager.default.url(for: .documentDirectory,
-            in: .userDomainMask,
-            appropriateFor: nil,
-                create: false) {
-
-                let file = documentsDir.appendingPathComponent("Chess_log.json")
-                FileManager.default.createFile(atPath: file.path, contents: moveData, attributes: nil)
-
-                let items: [Any] = [file]
-                let ac = UIActivityViewController(activityItems: items, applicationActivities: nil)
-                present(ac, animated: true)
-            }
+        gc.gameLog.exportMoves { (file) in
+            let items: [Any] = [file]
+            let ac = UIActivityViewController(activityItems: items, applicationActivities: nil)
+            present(ac, animated: true)
         }
     }
 }
