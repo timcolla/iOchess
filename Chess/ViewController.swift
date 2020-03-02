@@ -57,7 +57,7 @@ class ViewController: UIViewController {
         chessBoard.backgroundColor = .clear
 
         let size = chessBoard.frame.width / 8.0
-        print(size)
+
         for i in 0..<gc.board.count {
             let column = CGFloat(i % 8)
             let row = CGFloat(i / 8)
@@ -225,6 +225,25 @@ class ViewController: UIViewController {
             let items: [Any] = [file]
             let ac = UIActivityViewController(activityItems: items, applicationActivities: nil)
             present(ac, animated: true)
+        }
+    }
+
+    @IBAction func replaySharedLog(_ sender: UIButton) {
+        if let chessData = UserDefaults(suiteName: "group.com.marinosoftware.chess")?.value(forKey: "chessData") as? Data {
+            if let image = UIImage(data: chessData) {
+                print(image)
+            }
+            if let moves = try? JSONDecoder().decode([Move].self, from: chessData) {
+                gc.playBack = true
+                gc.resetBoard()
+                updateBoard()
+
+                gc.gameLog.moves = moves
+                logView.showGameLog(gc.gameLog)
+
+            }
+        } else {
+            print("No log was shared")
         }
     }
 }
