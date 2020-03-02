@@ -19,7 +19,21 @@ class ShareViewController: SLComposeServiceViewController {
 
     override func isContentValid() -> Bool {
         // Do validation of contentText and/or NSExtensionContext attachments here
-        return true
+
+        guard let extensionItems = extensionContext?.inputItems as? [NSExtensionItem] else {
+            return false
+        }
+
+        for extensionItem in extensionItems {
+            if let itemProviders = extensionItem.attachments {
+                for itemProvider in itemProviders {
+                    if itemProvider.hasItemConformingToTypeIdentifier("public.json") {
+                        return true
+                    }
+                }
+            }
+        }
+        return false
     }
 
     override func didSelectPost() {
@@ -43,9 +57,7 @@ class ShareViewController: SLComposeServiceViewController {
         for extensionItem in extensionItems {
             if let itemProviders = extensionItem.attachments {
                 for itemProvider in itemProviders {
-                    print(itemProvider.registeredTypeIdentifiers)
                     if itemProvider.hasItemConformingToTypeIdentifier("public.file-url") {
-                        print("has item kUTTypeData")
                         itemProvider.loadItem(forTypeIdentifier: "public.file-url", options: nil, completionHandler: { data, error in
                             if let url = data as? URL,
                                 let chessData = NSData(contentsOf: url) {
