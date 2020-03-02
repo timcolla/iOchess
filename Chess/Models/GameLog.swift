@@ -27,9 +27,10 @@ struct GameLog {
             in: .userDomainMask,
             appropriateFor: nil,
                 create: false) {
-
-                let file = documentsDir.appendingPathComponent("Chess_log.json")
-                FileManager.default.createFile(atPath: file.path, contents: moveData, attributes: nil)
+print(documentsDir)
+                let file = documentsDir.appendingPathComponent("/Chess_log.json")
+//                FileManager.default.createFile(atPath: file.path, contents: moveData, attributes: nil)
+                try! moveData.write(to: file, options: .atomicWrite)
 
                 completion(file)
             }

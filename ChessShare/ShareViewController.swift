@@ -44,14 +44,12 @@ class ShareViewController: SLComposeServiceViewController {
             if let itemProviders = extensionItem.attachments {
                 for itemProvider in itemProviders {
                     print(itemProvider.registeredTypeIdentifiers)
-                    if itemProvider.hasItemConformingToTypeIdentifier(kUTTypeData as String) {
-
-                        itemProvider.loadItem(forTypeIdentifier: kUTTypeData as String, options: nil, completionHandler: { data, error in
-                            print("passSelectedItemsToApp:51")
-                            print(data)
+                    if itemProvider.hasItemConformingToTypeIdentifier("public.file-url") {
+                        print("has item kUTTypeData")
+                        itemProvider.loadItem(forTypeIdentifier: "public.file-url", options: nil, completionHandler: { data, error in
                             if let url = data as? URL,
-                                let imageData = NSData(contentsOf: url) {
-                                UserDefaults(suiteName: "group.com.marinosoftware.chess")?.set(imageData, forKey: "imageData")
+                                let chessData = NSData(contentsOf: url) {
+                                UserDefaults(suiteName: "group.com.marinosoftware.chess")?.set(chessData, forKey: "chessData")
                             }
                         })
                     }
