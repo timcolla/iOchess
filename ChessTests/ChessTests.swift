@@ -116,4 +116,30 @@ class ChessTests: XCTestCase {
         XCTAssert(gc.board[15] == nil)
         XCTAssert(gc.board[7] is Queen)
     }
+
+    func testBreakBlockCheckSquares() {
+        // White: d4
+        gc.selectSquare(index: 51)
+        gc.selectSquare(index: 35)
+
+        // Black: e5
+        gc.selectSquare(index: 12)
+        gc.selectSquare(index: 28)
+
+        // White: Nc3
+        gc.selectSquare(index: 57)
+        gc.selectSquare(index: 42)
+
+        // Black: exd4
+        gc.selectSquare(index: 28)
+        gc.selectSquare(index: 35)
+
+        // White: Nb5
+        gc.selectSquare(index: 42)
+        gc.selectSquare(index: 25)
+
+        // Black: C6 (crashes)
+        gc.selectSquare(index: 10)
+        gc.selectSquare(index: 18)
+    }
 }
