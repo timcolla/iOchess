@@ -11,24 +11,20 @@ import XCTest
 
 class ChessTests: XCTestCase {
 
-    var testBoard: [Piece?] = [Rook(colour: .black), Knight(colour: .black), Bishop(colour: .black), Queen(colour: .black), King(colour: .black), Bishop(colour: .black), Knight(colour: .black), Rook(colour: .black),
-    Pawn(colour: .black), Pawn(colour: .black), Pawn(colour: .black), Pawn(colour: .black), Pawn(colour: .black), Pawn(colour: .black), Pawn(colour: .black), Pawn(colour: .black),
-    nil, nil, nil, nil, nil, nil, nil, nil,
-    nil, nil, nil, nil, nil, nil, nil, nil,
-    nil, nil, nil, nil, nil, nil, nil, nil,
-    nil, nil, nil, nil, nil, nil, nil, nil,
-    Pawn(colour: .white), Pawn(colour: .white), Pawn(colour: .white), Pawn(colour: .white), Pawn(colour: .white), Pawn(colour: .white), Pawn(colour: .white), Pawn(colour: .white),
-    Rook(colour: .white), Knight(colour: .white), Bishop(colour: .white), Queen(colour: .white), King(colour: .white), Bishop(colour: .white), Knight(colour: .white), Rook(colour: .white)]
+    var testBoard: [Piece?]!
+    var gc: GameController!
 
-    let gc = GameController()
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-
+        testBoard = Helper.standardBoard
+        gc = GameController()
         gc.board = testBoard
     }
 
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
+        testBoard = nil
+        gc = nil
     }
 
     func testPawnMove() {
