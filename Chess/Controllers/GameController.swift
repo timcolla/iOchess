@@ -540,6 +540,12 @@ class GameController {
     }
 
     func blockCheckSquares(kingIndex: Int, checkedBy: Int) -> [Int] {
+        guard let king = board[kingIndex],
+              let checkedByPiece = board[checkedBy],
+              king.colour != checkedByPiece.colour else {
+            return []
+        }
+
         let kingSquare = Square(withIndex: kingIndex)
         let checkedBySquare = Square(withIndex: checkedBy)
 
