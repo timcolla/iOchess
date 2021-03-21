@@ -52,6 +52,13 @@
                                     <action selector="toggleReplay:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lsU-c0-1rm"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="78y-DD-nPT">
+                                <rect key="frame" x="43.5" y="438" width="128" height="30"/>
+                                <state key="normal" title="Replay Shared Log"/>
+                                <connections>
+                                    <action selector="replaySharedLog:" destination="BYZ-38-t0r" eventType="touchUpInside" id="sqM-3r-xQ2"/>
+                                </connections>
+                            </button>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4LS-vt-KSu" customClass="LogView" customModule="Chess" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="476" width="414" height="336"/>
                                 <subviews>
@@ -113,6 +120,8 @@
                             <constraint firstItem="0t1-Ng-tf1" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="3Vv-cY-PUR"/>
                             <constraint firstItem="VMu-Bc-LAg" firstAttribute="centerY" secondItem="0t1-Ng-tf1" secondAttribute="centerY" id="4d1-Pf-eSP"/>
                             <constraint firstItem="eiw-IA-Gc1" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="4rq-Gq-aTf"/>
+                            <constraint firstItem="0t1-Ng-tf1" firstAttribute="leading" secondItem="78y-DD-nPT" secondAttribute="trailing" constant="16" id="84T-yP-O3l"/>
+                            <constraint firstItem="78y-DD-nPT" firstAttribute="centerY" secondItem="0t1-Ng-tf1" secondAttribute="centerY" id="95S-u6-oBm"/>
                             <constraint firstItem="m9A-M4-2FC" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="D5v-NF-Tiw"/>
                             <constraint firstItem="m9A-M4-2FC" firstAttribute="top" secondItem="4LS-vt-KSu" secondAttribute="bottom" constant="20" id="DmN-vt-H15"/>
                             <constraint firstItem="otf-av-M2S" firstAttribute="top" secondItem="eiw-IA-Gc1" secondAttribute="top" id="Hqq-8Q-KW7"/>
