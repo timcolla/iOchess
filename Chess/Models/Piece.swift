@@ -8,23 +8,37 @@
 
 import Foundation
 
-enum Colour {
+/// What side the piece belongs to
+enum Colour: String, Codable {
     case white
     case black
+
+    func toggled() -> Colour {
+        if self == .white {
+            return .black
+        } else {
+            return .white
+        }
+    }
 }
 
-typealias Position = (column: Int, row: Int)
-
-protocol Piece {
+/// Piece protocol for all pieces to conform to
+protocol Piece: Codable {
+    /// Where a piece can mvoe
     var relativeMoves: [Int] { get }
+    /// How far a piece can move
     var range: Int { get }
+    /// What side a piece belongs to
     var colour: Colour { get }
+    /// String value for displaying on the board
     var stringValue: String { get }
+    /// Algebraic notation string value
+    var algebraicNotation: String { get }
 
     init(colour: Colour)
 }
 
-struct Pawn: Piece {
+struct Pawn: Piece, Codable {
     var colour: Colour
     var firstMove: Bool = true
     var relativeMoves: [Int] {
@@ -41,6 +55,8 @@ struct Pawn: Piece {
         return colour == .white ? "♙" : "♟"
     }
 
+    var algebraicNotation: String = ""
+
     init(colour: Colour) {
         self.colour = colour
     }
@@ -54,6 +70,8 @@ struct Bishop: Piece {
     var stringValue: String {
         return colour == .white ? "♗" : "♝"
     }
+
+    var algebraicNotation: String = "B"
 
     init(colour: Colour) {
         self.colour = colour
@@ -69,6 +87,8 @@ struct Queen: Piece {
         return colour == .white ? "♕" : "♛"
     }
 
+    var algebraicNotation: String = "Q"
+
     init(colour: Colour) {
         self.colour = colour
     }
@@ -76,12 +96,17 @@ struct Queen: Piece {
 
 struct King: Piece {
     var colour: Colour
-    var relativeMoves: [Int] = [-1,-7,-8,-9,1,7,8,9]
+    var firstMove: Bool = true
+    var relativeMoves: [Int] {
+        return firstMove ? [-1,-2,-7,-8,-9,1,2,7,8,9] : [-1,-7,-8,-9,1,7,8,9]
+    }
     var range: Int = 1
 
     var stringValue: String {
         return colour == .white ? "♔" : "♚"
     }
+
+    var algebraicNotation: String = "K"
 
     init(colour: Colour) {
         self.colour = colour
@@ -90,12 +115,15 @@ struct King: Piece {
 
 struct Rook: Piece {
     var colour: Colour
+    var firstMove: Bool = true
     var relativeMoves: [Int] = [-1,-8,1,8]
     var range: Int = 7
 
     var stringValue: String {
         return colour == .white ? "♖" : "♜"
     }
+
+    var algebraicNotation: String = "R"
 
     init(colour: Colour) {
         self.colour = colour
@@ -111,15 +139,17 @@ struct Knight: Piece {
         return colour == .white ? "♘" : "♞"
     }
 
+    var algebraicNotation: String = "N"
+
     init(colour: Colour) {
         self.colour = colour
     }
 
-    func validPossibleSquare(_ possible: Position, position: Position) -> Bool {
-        if position.row - possible.row >= -2 && position.row - possible.row <= 2
-            && position.column - possible.column >= -2 && position.column - possible.column <= 2
-            && possible.column + possible.row * 8 >= 0
-            && possible.column + possible.row * 8 < 8 * 8 {
+    func validPossibleSquare(_ possible: Square, position: Square) -> Bool {
+        if position.coordinate.row - possible.coordinate.row >= -2 && position.coordinate.row - possible.coordinate.row <= 2
+            && position.coordinate.column - possible.coordinate.column >= -2 && position.coordinate.column - possible.coordinate.column <= 2
+            && possible.coordinate.column + possible.coordinate.row * 8 >= 0
+            && possible.coordinate.column + possible.coordinate.row * 8 < 8 * 8 {
             return true
         }
         return false
