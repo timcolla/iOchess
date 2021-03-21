@@ -57,7 +57,7 @@ class ViewController: UIViewController {
         chessBoard.backgroundColor = .clear
 
         let size = chessBoard.frame.width / 8.0
-        print(size)
+
         for i in 0..<gc.board.count {
             let column = CGFloat(i % 8)
             let row = CGFloat(i / 8)
@@ -225,6 +225,68 @@ class ViewController: UIViewController {
             let items: [Any] = [file]
             let ac = UIActivityViewController(activityItems: items, applicationActivities: nil)
             present(ac, animated: true)
+        }
+    }
+
+    @IBAction func replaySharedLog(_ sender: UIButton) {
+        if let chessData = UserDefaults(suiteName: "group.com.marinosoftware.chess")?.value(forKey: "chessData") as? Data {
+            if let image = UIImage(data: chessData) {
+                print(image)
+            }
+            if let moves = try? JSONDecoder().decode([Move].self, from: chessData) {
+                gc.playBack = true
+                gc.resetBoard()
+                updateBoard()
+
+                gc.gameLog.moves = moves
+                logView.showGameLog(gc.gameLog)
+
+                UserDefaults(suiteName: "group.com.marinosoftware.chess")?.removeObject(forKey: "chessData")
+            }
+        } else {
+            print("No log was shared")
+            let documentPicker = UIDocumentPickerViewController(documentTypes: ["public.json"], in: .import)
+            documentPicker.delegate = self
+            documentPicker.allowsMultipleSelection = false
+
+            self.present(documentPicker, animated: true, completion: nil)
+        }
+    }
+}
+
+extension ViewController: UIDocumentPickerDelegate {
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        print(urls)
+
+        guard let sourceUrl = urls.first,
+            let documentsDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            return
+        }
+
+        let destinationUrl = documentsDir.appendingPathComponent("Chess_log.json")
+
+        do {
+            if FileManager.default.fileExists(atPath: destinationUrl.path) {
+                try FileManager.default.removeItem(at: destinationUrl)
+            }
+            try FileManager.default.copyItem(at: sourceUrl, to: destinationUrl)
+
+            startGameFrom(file: destinationUrl)
+        } catch {
+            print(error)
+        }
+    }
+
+    func startGameFrom(file: URL) {
+        if let moves = try? JSONDecoder().decode([Move].self, from: Data(contentsOf: file)) {
+            gc.playBack = true
+            gc.resetBoard()
+            updateBoard()
+
+            gc.gameLog.moves = moves
+            logView.showGameLog(gc.gameLog)
+
+            UserDefaults(suiteName: "group.com.marinosoftware.chess")?.removeObject(forKey: "chessData")
         }
     }
 }
