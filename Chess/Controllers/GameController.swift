@@ -160,12 +160,12 @@ class GameController {
     }
 
     private func forbiddenKingSquares(for piece: King) -> [Int] {
-        let oponentColour: Colour = piece.colour == .white ? .black : .white
+        let opponentColour: Colour = piece.colour == .white ? .black : .white
         var forbiddenSquares = [Int]()
-        for (oponentIndex, possibleOponentPiece) in board.enumerated() {
-            if let oponentPiece = possibleOponentPiece,
-                oponentPiece.colour == oponentColour, !(oponentPiece is Pawn) {
-                forbiddenSquares += self.possibleSquares(for: oponentIndex, board: board, preventRecursion: true)
+        for (opponentIndex, possibleOpponentPiece) in board.enumerated() {
+            if let opponentPiece = possibleOpponentPiece,
+                opponentPiece.colour == opponentColour, !(opponentPiece is Pawn) {
+                forbiddenSquares += self.possibleSquares(for: opponentIndex, board: board, preventRecursion: true)
             }
         }
         return forbiddenSquares
@@ -225,7 +225,7 @@ class GameController {
                     }
                 } else if let piece = piece as? King, (relativeMove == -2 || relativeMove == 2), !preventRecursion {
                     if piece.firstMove {
-                        let oponentColour: Colour = piece.colour == .white ? .black : .white
+                        let opponentColour: Colour = piece.colour == .white ? .black : .white
                         if relativeMove == 2 {
                             if let rook = board[possibleSquare+1] as? Rook, rook.firstMove,
                                 board[possibleSquare-1] == nil,
